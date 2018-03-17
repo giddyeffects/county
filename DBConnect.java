@@ -8,6 +8,7 @@ package Project;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.Properties;
@@ -19,7 +20,7 @@ import javax.swing.JOptionPane;
  */
 public class DBConnect {
     //class variables
-    //initialize database constants
+    //initialize database CONSTANTS
     private static final String DATABASE = "mysql";
     private static final String DATABASE_DRIVER = "com.mysql.jdbc.Driver";
     private static final String DATABASE_HOST = "localhost";
@@ -28,9 +29,12 @@ public class DBConnect {
     private static final String DATABASE_URL = "jdbc:" + DATABASE + "://" + DATABASE_HOST + ":" + DATABASE_PORT + "/" + DATABASE_NAME;
     private static final String USERNAME = "anoop_user";
     private static final String PASSWORD = "0OP@ssword!";
+    //database table name CONSTANTS
+    public static final String COUNTIES_TABLE = "counties";
+    public static final String USERS_TABLE = "users";
     
     //instance variables
-    private Connection connection;
+    private static Connection connection;
     private Properties properties;
     
     //create the properties
@@ -72,6 +76,32 @@ public class DBConnect {
         }
     }
     
+    //close a statement
+    public Statement close(Statement stmt) {
+        if (stmt != null) {
+            try {
+                stmt.close();
+                stmt = null;
+            } catch (SQLException e) {
+                e.getMessage();
+            }
+        }
+        return stmt;
+    }
+    
+    //close a prepared statement
+    public PreparedStatement close(PreparedStatement stmt) {
+        if (stmt != null) {
+            try {
+                stmt.close();
+                stmt = null;
+            } catch (SQLException e) {
+                e.getMessage();
+            }
+        }
+        return stmt;
+    }
+    
     //get a resultset from the DB
     public ResultSet getResult(String sql) {
         ResultSet rs = null;
@@ -81,7 +111,7 @@ public class DBConnect {
             //execute the sql statement
             if (stmt.execute(sql)) {
                 rs = stmt.getResultSet();
-                if(rs.next()) return rs; //return the resultset if rows > 0
+                if(rs.isBeforeFirst()) return rs; //return the resultset if rows > 0
             }
         } catch (SQLException err) {
             JOptionPane.showMessageDialog(null, "Oops! Error retrieving result. Resultset may be empty", "DB Error", JOptionPane.ERROR_MESSAGE);
@@ -99,6 +129,14 @@ public class DBConnect {
         stmt.close();
     }
     
+      //execute a prepared sql query
+    public void execute(PreparedStatement stmt) throws SQLException {
+        try {
+            stmt.executeUpdate();
+        } catch (SQLException e) {}
+        stmt.close();
+    }
+    
     //commits updates to the database
     public void commit() throws SQLException {
         try {
@@ -106,8 +144,8 @@ public class DBConnect {
         } catch (SQLException e) {}
     }
     
-    public static void main(String[] args) {
-        DBConnect db = new DBConnect();
-        db.connect();
-    }
+//    public static void main(String[] args) {
+//        DBConnect db = new DBConnect();
+//        db.connect();
+//    }
 }

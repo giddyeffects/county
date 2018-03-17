@@ -1,21 +1,35 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Object Oriented Programming Principles
+ * End of Semester class project
+ * 
  */
 package Project;
 
+import java.util.Arrays;
+
+
 /**
  *
- * @author user
+ * @author 101794
  */
 public class RegistrationForm extends javax.swing.JFrame {
+    
+    //User details
+    String username = "";
+    String fullname = "";
+    String email = "";
+    char[] pass1;
+    char[] pass2;
+    String county = "";
+    String[] userDetails = new String[5];
 
     /**
      * Creates new form RegistrationForm
      */
     public RegistrationForm() {
         initComponents();
+        Utils.db().connect(); //connect to the database on initialization because we need to load counties
+        this.loadCounties(); //load the counties dropdown list
     }
 
     /**
@@ -29,8 +43,22 @@ public class RegistrationForm extends javax.swing.JFrame {
 
         headerLabel = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
+        usernameLabel = new javax.swing.JLabel();
+        fullnameLabel = new javax.swing.JLabel();
+        emailLabel = new javax.swing.JLabel();
+        passLabel = new javax.swing.JLabel();
+        pass2Label = new javax.swing.JLabel();
+        emailTxt = new javax.swing.JTextField();
+        fullnameTxt = new javax.swing.JTextField();
+        usernameTxt = new javax.swing.JTextField();
+        countyLabel = new javax.swing.JLabel();
+        countyTxt = new javax.swing.JComboBox<>();
+        registerBtn = new javax.swing.JButton();
+        resetBtn = new javax.swing.JButton();
+        passTxt = new javax.swing.JPasswordField();
+        confirmPassTxt = new javax.swing.JPasswordField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("CGIS - Register New Account");
 
         headerLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Project/images/form-header.png"))); // NOI18N
@@ -38,18 +66,70 @@ public class RegistrationForm extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Adobe Garamond Pro Bold", 0, 18)); // NOI18N
         jLabel1.setText("REGISTER NEW ACCOUNT");
 
+        usernameLabel.setText("Username:");
+
+        fullnameLabel.setText("Full Name:");
+
+        emailLabel.setText("Email:");
+
+        passLabel.setText("Password:");
+
+        pass2Label.setText("Confirm Password:");
+
+        countyLabel.setText("County:");
+
+        countyTxt.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--select county--" }));
+
+        registerBtn.setText("Register");
+        registerBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                registerBtnActionPerformed(evt);
+            }
+        });
+
+        resetBtn.setText("Reset");
+        resetBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                resetBtnActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(headerLabel)
-                .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(headerLabel))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(pass2Label)
+                                    .addComponent(passLabel)
+                                    .addComponent(emailLabel)
+                                    .addComponent(fullnameLabel)
+                                    .addComponent(usernameLabel)
+                                    .addComponent(countyLabel))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(emailTxt)
+                                    .addComponent(fullnameTxt)
+                                    .addComponent(usernameTxt)
+                                    .addComponent(countyTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(registerBtn)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(resetBtn))
+                                    .addComponent(passTxt)
+                                    .addComponent(confirmPassTxt)))
+                            .addComponent(jLabel1))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -57,12 +137,114 @@ public class RegistrationForm extends javax.swing.JFrame {
                 .addComponent(headerLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 253, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(usernameLabel)
+                    .addComponent(usernameTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(fullnameLabel)
+                    .addComponent(fullnameTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(emailLabel)
+                    .addComponent(emailTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(21, 21, 21)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(passLabel)
+                    .addComponent(passTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(pass2Label)
+                    .addComponent(confirmPassTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(countyLabel)
+                    .addComponent(countyTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(registerBtn)
+                    .addComponent(resetBtn))
+                .addGap(0, 20, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void registerBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerBtnActionPerformed
+        // Register the user
+        if (dataValid() && ( Utils.showDialog("Ready to save user data. Continue?") == 0)){
+            String encryptedPass = Utils.encrypt(Arrays.toString(pass1));//encrypt the password
+            //fill the userdetails array
+            userDetails[0] = fullname;
+            userDetails[1] = username;
+            userDetails[2] = email;
+            userDetails[3] = encryptedPass;
+            userDetails[4] = county;
+            if (Utils.saveUser(userDetails)) {
+                Utils.showDialog("User created. You can now login","Info");
+                //close the registration window
+                this.dispose();
+            }
+        }
+    }//GEN-LAST:event_registerBtnActionPerformed
+
+    private void resetBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetBtnActionPerformed
+        // Reset the fields
+        resetFields();
+    }//GEN-LAST:event_resetBtnActionPerformed
+
+    /**
+     * Load counties dropdown
+     */
+    private void loadCounties() {
+        countyTxt = Utils.getCounties(countyTxt);
+    }
+    
+    private boolean dataValid() {
+        username = usernameTxt.getText().trim();
+        fullname = fullnameTxt.getText().trim();
+        email = emailTxt.getText().trim();
+        pass1 = passTxt.getPassword();
+        pass2 = confirmPassTxt.getPassword();
+        county = countyTxt.getSelectedItem().toString();
+        //all fields must have a value
+        if (username.equals("") || fullname.equals("") || email.equals("") || pass1.equals("") || pass2.equals("")) {
+            Utils.showDialog("Enter a value for each field", "Error");
+            return false;
+        }
+        //username must be alphanumeric
+        if(!Utils.checkUsername(username)) {
+            Utils.showDialog("Invalid username. Alphanumerics only", "Error");
+            return false;            
+        }
+        //email must be valid
+        if(!Utils.emailValid(email)) {
+            Utils.showDialog("Invalid email. Check and try again", "Error");
+            return false;            
+        }
+        //passwords must match
+        if (!Arrays.equals(pass1, pass2)) {
+            Utils.showDialog("Password mismatch. Confirm the password", "Error");
+            return false;        
+        }
+        //user must select a county
+        if (county.equals("--select county--")) {
+            Utils.showDialog("You must choose a county", "Error");
+            return false;
+        }
+        
+        return true;
+    }
+    private void resetFields() {
+        usernameTxt.setText("");
+        fullnameTxt.setText("");
+        emailTxt.setText("");
+        passTxt.setText("");
+        confirmPassTxt.setText("");
+        countyTxt.setSelectedItem("--select county--");
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -79,27 +261,35 @@ public class RegistrationForm extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(RegistrationForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(RegistrationForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(RegistrationForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(RegistrationForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        
+        //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new RegistrationForm().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new RegistrationForm().setVisible(true);
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPasswordField confirmPassTxt;
+    private javax.swing.JLabel countyLabel;
+    private javax.swing.JComboBox<String> countyTxt;
+    private javax.swing.JLabel emailLabel;
+    private javax.swing.JTextField emailTxt;
+    private javax.swing.JLabel fullnameLabel;
+    private javax.swing.JTextField fullnameTxt;
     private javax.swing.JLabel headerLabel;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel pass2Label;
+    private javax.swing.JLabel passLabel;
+    private javax.swing.JPasswordField passTxt;
+    private javax.swing.JButton registerBtn;
+    private javax.swing.JButton resetBtn;
+    private javax.swing.JLabel usernameLabel;
+    private javax.swing.JTextField usernameTxt;
     // End of variables declaration//GEN-END:variables
 }

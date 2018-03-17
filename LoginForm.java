@@ -5,14 +5,20 @@
  */
 package Project;
 
+import java.util.Arrays;
+
+
 /**
- * Shows the Login Form
+ *
  * @author 101794
  */
 public class LoginForm extends javax.swing.JFrame {
+    
+    //login details
+    String[] loginDetails = new String[2];
 
     /**
-     * Creates new form LoginForm
+     * Creates new form LoginFrame
      */
     public LoginForm() {
         initComponents();
@@ -27,64 +33,142 @@ public class LoginForm extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        usernameLabel = new javax.swing.JLabel();
-        usernameTxt = new javax.swing.JTextField();
-        passTxt = new javax.swing.JTextField();
-        passLabel = new javax.swing.JLabel();
         headerLabel = new javax.swing.JLabel();
+        usernameLabel = new javax.swing.JLabel();
+        passLabel = new javax.swing.JLabel();
+        usernameTxt = new javax.swing.JTextField();
         loginBtn = new javax.swing.JButton();
         cancelBtn = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        registerLabel = new javax.swing.JLabel();
+        passTxt = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("CGIS - Login");
-        setBounds(new java.awt.Rectangle(0, 0, 0, 0));
-        setMinimumSize(new java.awt.Dimension(370, 400));
-        setResizable(false);
-        getContentPane().setLayout(null);
-
-        usernameLabel.setText("Username");
-        getContentPane().add(usernameLabel);
-        usernameLabel.setBounds(40, 190, 50, 14);
-        getContentPane().add(usernameTxt);
-        usernameTxt.setBounds(110, 190, 190, 20);
-        getContentPane().add(passTxt);
-        passTxt.setBounds(110, 220, 190, 20);
-
-        passLabel.setText("Password");
-        getContentPane().add(passLabel);
-        passLabel.setBounds(40, 220, 50, 14);
 
         headerLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Project/images/form-header.png"))); // NOI18N
-        getContentPane().add(headerLabel);
-        headerLabel.setBounds(0, 0, 360, 140);
+
+        usernameLabel.setText("Username:");
+
+        passLabel.setText("Password:");
+
+        usernameTxt.setToolTipText("enter your username");
 
         loginBtn.setText("Login");
+        loginBtn.setToolTipText("Click to login");
         loginBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 loginBtnActionPerformed(evt);
             }
         });
-        getContentPane().add(loginBtn);
-        loginBtn.setBounds(110, 260, 57, 23);
 
         cancelBtn.setText("Cancel");
-        getContentPane().add(cancelBtn);
-        cancelBtn.setBounds(230, 260, 73, 23);
+        cancelBtn.setToolTipText("Cancel and exit");
+        cancelBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cancelBtnActionPerformed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Adobe Garamond Pro Bold", 0, 18)); // NOI18N
         jLabel1.setText("LOGIN");
-        getContentPane().add(jLabel1);
-        jLabel1.setBounds(40, 134, 60, 30);
+
+        registerLabel.setForeground(new java.awt.Color(0, 51, 255));
+        registerLabel.setText("no account? register here");
+        registerLabel.setToolTipText("create an account");
+        registerLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        registerLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                registerLabelMouseClicked(evt);
+            }
+        });
+
+        passTxt.setToolTipText("enter the password");
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(headerLabel)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(34, 34, 34)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(usernameLabel)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(usernameTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(passLabel)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(loginBtn)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(cancelBtn))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(registerLabel)
+                                    .addGap(0, 0, Short.MAX_VALUE))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGap(2, 2, 2)
+                                    .addComponent(passTxt)))))))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(headerLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(usernameLabel)
+                    .addComponent(usernameTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(passLabel)
+                    .addComponent(passTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(26, 26, 26)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(loginBtn)
+                    .addComponent(cancelBtn))
+                .addGap(18, 18, 18)
+                .addComponent(registerLabel)
+                .addGap(12, 12, 12))
+        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void cancelBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelBtnActionPerformed
+        // Exit application
+        if(Utils.showDialog("Are you sure you want to exit?") == 0) System.exit(0);
+    }//GEN-LAST:event_cancelBtnActionPerformed
+
+    private void registerLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_registerLabelMouseClicked
+        // Open registration page
+        new RegistrationForm().setVisible(true);
+    }//GEN-LAST:event_registerLabelMouseClicked
+
     private void loginBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginBtnActionPerformed
-        //validate user input
+        // Login the user
+        if(dataValid()) {
+            Utils.loginUser(loginDetails);
+        }
         
     }//GEN-LAST:event_loginBtnActionPerformed
 
+    private boolean dataValid() {
+        loginDetails[0] = usernameTxt.getText().trim();
+        loginDetails[1] = Arrays.toString(passTxt.getPassword());
+        if (loginDetails[0].equals("") || loginDetails[1].equals("") || loginDetails[1].isEmpty()) {
+            Utils.showDialog("Enter a value for each field", "Error");
+            return false;
+        }
+        
+        return true;
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -111,12 +195,11 @@ public class LoginForm extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(LoginForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new LoginForm().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new LoginForm().setVisible(true);
         });
     }
 
@@ -126,7 +209,8 @@ public class LoginForm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JButton loginBtn;
     private javax.swing.JLabel passLabel;
-    private javax.swing.JTextField passTxt;
+    private javax.swing.JPasswordField passTxt;
+    private javax.swing.JLabel registerLabel;
     private javax.swing.JLabel usernameLabel;
     private javax.swing.JTextField usernameTxt;
     // End of variables declaration//GEN-END:variables
