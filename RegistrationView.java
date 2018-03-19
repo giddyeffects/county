@@ -12,7 +12,7 @@ import java.util.Arrays;
  *
  * @author 101794
  */
-public class RegistrationForm extends javax.swing.JFrame {
+public class RegistrationView extends javax.swing.JFrame {
     
     //User details
     String username = "";
@@ -26,7 +26,7 @@ public class RegistrationForm extends javax.swing.JFrame {
     /**
      * Creates new form RegistrationForm
      */
-    public RegistrationForm() {
+    public RegistrationView() {
         initComponents();
         Utils.db().connect(); //connect to the database on initialization because we need to load counties
         this.loadCounties(); //load the counties dropdown list
@@ -268,15 +268,16 @@ public class RegistrationForm extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(RegistrationForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RegistrationView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
         
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
-            new RegistrationForm().setVisible(true);
+            new RegistrationView().setVisible(true);
         });
     }
 

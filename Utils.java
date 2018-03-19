@@ -23,7 +23,7 @@ public class Utils {
     
     //global variables
     public static boolean loggedIn = false;
-    public static User user;
+    public static UserModel user;
     
     public static boolean checkUsername(String s) {
         String regex = "^[a-zA-Z0-9]+$"; //allow alphanumeric only for the username
@@ -107,7 +107,7 @@ public class Utils {
                 if(checkPassword(user[1],rs.getString("password"))) {
                     //user authenticated... create an user Object and proceed to open main app
                     Utils.loggedIn = true;
-                    Utils.user = new User(rs.getString("username"), rs.getString("fullname"), rs.getString("email"), rs.getString("county"), rs.getInt("role"), rs.getInt("id") );
+                    Utils.user = new UserModel(rs.getString("username"), rs.getString("fullname"), rs.getString("email"), rs.getString("county"), rs.getInt("role"), rs.getInt("id") );
                     showDialog("User "+user[0]+" Logged in. You can proceed","Info");
                     status = true;
                 } else {

@@ -9,12 +9,12 @@ package Project;
  *
  * @author 101794
  */
-public class Home extends javax.swing.JFrame {
+public class HomeView extends javax.swing.JFrame {
 
     /**
      * Creates new form Home
      */
-    public Home() {
+    public HomeView() {
         initComponents();
         if(Utils.loggedIn) {
             welcomeLabel.setText("Welcome "+Utils.user.getFullname());
@@ -29,16 +29,12 @@ public class Home extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-        bindingGroup = new org.jdesktop.beansbinding.BindingGroup();
 
-        entityManager = java.beans.Beans.isDesignTime() ? null : javax.persistence.Persistence.createEntityManagerFactory("ooproject?zeroDateTimeBehavior=convertToNullPU").createEntityManager();
-        projectsQuery = java.beans.Beans.isDesignTime() ? null : entityManager.createQuery("SELECT p FROM Projects p");
-        projectsList = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : projectsQuery.getResultList();
         welcomeLabel = new javax.swing.JLabel();
         dashLabel = new javax.swing.JLabel();
         mainTabbedPane = new javax.swing.JTabbedPane();
         projectPanel = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        projectHeaderLabel = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -49,11 +45,9 @@ public class Home extends javax.swing.JFrame {
         jTextField3 = new javax.swing.JTextField();
         jTextField4 = new javax.swing.JTextField();
         jTextField5 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        addBtn = new javax.swing.JButton();
+        projectsScrollPane = new javax.swing.JScrollPane();
+        projectsTable = new javax.swing.JTable();
         disbursePanel = new javax.swing.JPanel();
         statusLabel = new javax.swing.JLabel();
         homeMenuBar = new javax.swing.JMenuBar();
@@ -73,8 +67,8 @@ public class Home extends javax.swing.JFrame {
         dashLabel.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
         dashLabel.setText("Dashboard");
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel1.setText("County Projects");
+        projectHeaderLabel.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        projectHeaderLabel.setText("County Projects");
 
         jLabel2.setText("Title:");
 
@@ -86,46 +80,25 @@ public class Home extends javax.swing.JFrame {
 
         jLabel6.setText("Number of Activities:");
 
-        jButton1.setText("Add");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        addBtn.setText("Add");
+        addBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                addBtnActionPerformed(evt);
             }
         });
 
-        org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, projectsList, jTable2);
-        org.jdesktop.swingbinding.JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${title}"));
-        columnBinding.setColumnName("Title");
-        columnBinding.setColumnClass(String.class);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${manager}"));
-        columnBinding.setColumnName("Manager");
-        columnBinding.setColumnClass(String.class);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${activities}"));
-        columnBinding.setColumnName("Activities");
-        columnBinding.setColumnClass(Integer.class);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${budget}"));
-        columnBinding.setColumnName("Budget");
-        columnBinding.setColumnClass(String.class);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${startDate}"));
-        columnBinding.setColumnName("Start Date");
-        columnBinding.setColumnClass(java.util.Date.class);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${endDate}"));
-        columnBinding.setColumnName("End Date");
-        columnBinding.setColumnClass(java.util.Date.class);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${personnel}"));
-        columnBinding.setColumnName("Personnel");
-        columnBinding.setColumnClass(Integer.class);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${progress}"));
-        columnBinding.setColumnName("Progress");
-        columnBinding.setColumnClass(Integer.class);
-        bindingGroup.addBinding(jTableBinding);
-        jTableBinding.bind();
-
-        jScrollPane2.setViewportView(jTable2);
-
-        jButton2.setText("Update");
-
-        jButton3.setText("Delete");
+        projectsTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        projectsScrollPane.setViewportView(projectsTable);
 
         javax.swing.GroupLayout projectPanelLayout = new javax.swing.GroupLayout(projectPanel);
         projectPanel.setLayout(projectPanelLayout);
@@ -133,38 +106,34 @@ public class Home extends javax.swing.JFrame {
             projectPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(projectPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(projectPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel1)
-                    .addGroup(projectPanelLayout.createSequentialGroup()
-                        .addComponent(jLabel6)
-                        .addGap(18, 18, 18)
-                        .addComponent(jTextField5, javax.swing.GroupLayout.DEFAULT_SIZE, 105, Short.MAX_VALUE))
-                    .addGroup(projectPanelLayout.createSequentialGroup()
-                        .addGroup(projectPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel5))
-                        .addGap(35, 35, 35)
-                        .addGroup(projectPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 105, Short.MAX_VALUE)
-                            .addComponent(jTextField2)
-                            .addComponent(jTextField3)
-                            .addComponent(jTextField4)))
-                    .addGroup(projectPanelLayout.createSequentialGroup()
-                        .addComponent(jButton1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton3)))
+                .addGroup(projectPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(projectPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(projectHeaderLabel)
+                        .addGroup(projectPanelLayout.createSequentialGroup()
+                            .addComponent(jLabel6)
+                            .addGap(18, 18, 18)
+                            .addComponent(jTextField5, javax.swing.GroupLayout.DEFAULT_SIZE, 105, Short.MAX_VALUE))
+                        .addGroup(projectPanelLayout.createSequentialGroup()
+                            .addGroup(projectPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel2)
+                                .addComponent(jLabel3)
+                                .addComponent(jLabel4)
+                                .addComponent(jLabel5))
+                            .addGap(35, 35, 35)
+                            .addGroup(projectPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 105, Short.MAX_VALUE)
+                                .addComponent(jTextField2)
+                                .addComponent(jTextField3)
+                                .addComponent(jTextField4))))
+                    .addComponent(addBtn))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 502, Short.MAX_VALUE))
+                .addComponent(projectsScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 502, Short.MAX_VALUE))
         );
         projectPanelLayout.setVerticalGroup(
             projectPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(projectPanelLayout.createSequentialGroup()
                 .addGap(21, 21, 21)
-                .addComponent(jLabel1)
+                .addComponent(projectHeaderLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(projectPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
@@ -181,17 +150,14 @@ public class Home extends javax.swing.JFrame {
                 .addGroup(projectPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(projectPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(projectPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 93, Short.MAX_VALUE)
-                .addGroup(projectPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 105, Short.MAX_VALUE)
+                .addComponent(addBtn)
                 .addGap(52, 52, 52))
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addComponent(projectsScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
         );
 
         mainTabbedPane.addTab("Projects", new javax.swing.ImageIcon(getClass().getResource("/Project/images/icons8-project-50.png")), projectPanel); // NOI18N
@@ -291,8 +257,6 @@ public class Home extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        bindingGroup.bind();
-
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -301,7 +265,7 @@ public class Home extends javax.swing.JFrame {
             // logout user...Close Main App and show the login form
             Utils.logout();
             java.awt.EventQueue.invokeLater(() -> {
-                new LoginForm().setVisible(true);
+                new LoginView().setVisible(true);
             });
             this.dispose();
         }
@@ -312,9 +276,9 @@ public class Home extends javax.swing.JFrame {
         
     }//GEN-LAST:event_aboutMIActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void addBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBtnActionPerformed
         // Add a new project
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_addBtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -333,7 +297,7 @@ public class Home extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Home.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(HomeView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         
@@ -341,7 +305,7 @@ public class Home extends javax.swing.JFrame {
 
         /* Create and display the form *
         java.awt.EventQueue.invokeLater(() -> {
-            new Home().setVisible(true);
+            new HomeView().setVisible(true);
         });
     }*/
 
@@ -349,25 +313,19 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JMenuItem aboutMI;
     private javax.swing.JMenuItem accountMI;
     private javax.swing.JMenu accountMenu;
+    private javax.swing.JButton addBtn;
     private javax.swing.JLabel dashLabel;
     private javax.swing.JMenuItem disburseMI;
     private javax.swing.JPanel disbursePanel;
-    private javax.persistence.EntityManager entityManager;
     private javax.swing.JMenuItem expensesMI;
     private javax.swing.JMenu fileMenu;
     private javax.swing.JMenu helpMenu;
     private javax.swing.JMenuBar homeMenuBar;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable2;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
@@ -375,12 +333,12 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField5;
     private javax.swing.JMenuItem logoutMI;
     private javax.swing.JTabbedPane mainTabbedPane;
+    private javax.swing.JLabel projectHeaderLabel;
     private javax.swing.JPanel projectPanel;
-    private java.util.List<Project.Projects> projectsList;
     private javax.swing.JMenuItem projectsMI;
-    private javax.persistence.Query projectsQuery;
+    private javax.swing.JScrollPane projectsScrollPane;
+    private javax.swing.JTable projectsTable;
     private javax.swing.JLabel statusLabel;
     private javax.swing.JLabel welcomeLabel;
-    private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
 }

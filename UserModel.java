@@ -6,15 +6,15 @@
 package Project;
 
 /**
- * User Database Model
+ * User Database Table Model
  * 
  * @author 101794
  */
-public class User {
+public class UserModel {
     private String username, fullname, email, county;
     private int id, role;
     
-    User(String u, String f, String e, String c, int r, int i) {
+    UserModel(String u, String f, String e, String c, int r, int i) {
         username = u;
         fullname = f;
         email = e;
