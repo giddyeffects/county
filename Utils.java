@@ -20,12 +20,38 @@ import org.jasypt.util.password.BasicPasswordEncryptor;
  * @author 101794
  */
 public class Utils {
-
+    
+    //global variables
+    public static boolean loggedIn = false;
+    public static User user;
+    
     public static boolean checkUsername(String s) {
         String regex = "^[a-zA-Z0-9]+$"; //allow alphanumeric only for the username
         Pattern pattern = Pattern.compile(regex);
-        // TODO: check if username exists?
         return pattern.matcher(s).matches();
+    }
+    
+    public static boolean userExists(String username) {
+        boolean exists = false;
+        ResultSet rs = null;
+        PreparedStatement stmt = null;
+        try {
+            String sql = "SELECT * FROM `"+ DBConnect.USERS_TABLE + "` "
+                    + "WHERE `username` = ?";
+            stmt = Utils.db().connect().prepareStatement(sql);
+            stmt.setString(1, username);
+            rs = stmt.executeQuery();
+            if(rs.next()) {
+                //username exists
+                exists = true;
+            }
+        } catch (SQLException e) {
+            
+        } finally {
+            Utils.db().close(stmt);
+        }
+        
+        return exists;
     }
     
     public static boolean emailValid(String email) {
@@ -40,8 +66,8 @@ public class Utils {
         return isValid;
     }
     
-    public static String encrypt(String s) {
-        return  new BasicPasswordEncryptor().encryptPassword(s);
+    public static String encrypt(String plainPass) {
+        return new BasicPasswordEncryptor().encryptPassword(plainPass);
     }
     
     public static boolean checkPassword(String pass, String encryptedPass) {
@@ -66,7 +92,7 @@ public class Utils {
         return status;
     }
     
-    public static boolean loginUser(String[] user) {
+    public static boolean login(String[] user) {
         boolean status = false;
         ResultSet rs = null;
         PreparedStatement stmt = null;
@@ -79,8 +105,10 @@ public class Utils {
             if(rs.next()) {
                 //username found... now compare given password with stored encrypted password
                 if(checkPassword(user[1],rs.getString("password"))) {
-                    //user authenticated..proceed to open main app
-                    showDialog("User "+user[0]+" Logged in","Info");
+                    //user authenticated... create an user Object and proceed to open main app
+                    Utils.loggedIn = true;
+                    Utils.user = new User(rs.getString("username"), rs.getString("fullname"), rs.getString("email"), rs.getString("county"), rs.getInt("role"), rs.getInt("id") );
+                    showDialog("User "+user[0]+" Logged in. You can proceed","Info");
                     status = true;
                 } else {
                     showDialog("Incorrect password","Alert");
@@ -94,6 +122,13 @@ public class Utils {
             Utils.db().close(stmt);
         }
         return status;
+    }
+    
+    public static void logout() {
+        //set loggedIn to false
+        Utils.loggedIn = false;
+        //clear user Object
+        Utils.user = null;
     }
 
     public static DBConnect db() {
@@ -132,4 +167,5 @@ public class Utils {
     public static int showDialog(String msg) {
         return JOptionPane.showConfirmDialog(null, msg);
     }
+    
 }

@@ -45,6 +45,7 @@ public class LoginForm extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("CGIS - Login");
+        setResizable(false);
 
         headerLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Project/images/form-header.png"))); // NOI18N
 
@@ -91,7 +92,7 @@ public class LoginForm extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(headerLabel)
             .addGroup(layout.createSequentialGroup()
-                .addGap(34, 34, 34)
+                .addGap(32, 32, 32)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -110,15 +111,15 @@ public class LoginForm extends javax.swing.JFrame {
                                 .addGroup(layout.createSequentialGroup()
                                     .addComponent(registerLabel)
                                     .addGap(0, 0, Short.MAX_VALUE))
-                                .addGroup(layout.createSequentialGroup()
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                     .addGap(2, 2, 2)
-                                    .addComponent(passTxt)))))))
+                                    .addComponent(passTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(headerLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -134,7 +135,7 @@ public class LoginForm extends javax.swing.JFrame {
                     .addComponent(cancelBtn))
                 .addGap(18, 18, 18)
                 .addComponent(registerLabel)
-                .addGap(12, 12, 12))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
 
         pack();
@@ -152,8 +153,12 @@ public class LoginForm extends javax.swing.JFrame {
 
     private void loginBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginBtnActionPerformed
         // Login the user
-        if(dataValid()) {
-            Utils.loginUser(loginDetails);
+        if(dataValid() && Utils.login(loginDetails)) {
+            //close the login form and show main app Frame
+            java.awt.EventQueue.invokeLater(() -> {
+                new Home().setVisible(true);
+            });
+            this.dispose();
         }
         
     }//GEN-LAST:event_loginBtnActionPerformed

@@ -60,6 +60,7 @@ public class RegistrationForm extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("CGIS - Register New Account");
+        setResizable(false);
 
         headerLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Project/images/form-header.png"))); // NOI18N
 
@@ -216,6 +217,11 @@ public class RegistrationForm extends javax.swing.JFrame {
         //username must be alphanumeric
         if(!Utils.checkUsername(username)) {
             Utils.showDialog("Invalid username. Alphanumerics only", "Error");
+            return false;            
+        }
+        //username must be unique
+        if(Utils.userExists(username)) {
+            Utils.showDialog("Username "+username+" exists. Try another username", "Error");
             return false;            
         }
         //email must be valid
