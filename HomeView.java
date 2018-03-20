@@ -35,20 +35,33 @@ public class HomeView extends javax.swing.JFrame {
         mainTabbedPane = new javax.swing.JTabbedPane();
         projectPanel = new javax.swing.JPanel();
         projectHeaderLabel = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
-        jTextField5 = new javax.swing.JTextField();
+        titleLabel = new javax.swing.JLabel();
+        sponsorLabel = new javax.swing.JLabel();
+        pmLabel = new javax.swing.JLabel();
+        activitiesLabel = new javax.swing.JLabel();
+        titleTxt = new javax.swing.JTextField();
+        sponsorTxt = new javax.swing.JTextField();
+        pmTxt = new javax.swing.JTextField();
+        activitiesTxt = new javax.swing.JTextField();
         addBtn = new javax.swing.JButton();
         projectsScrollPane = new javax.swing.JScrollPane();
         projectsTable = new javax.swing.JTable();
+        updateBtn = new javax.swing.JButton();
+        deleteBtn = new javax.swing.JButton();
+        budgetLabel = new javax.swing.JLabel();
+        budgetTxt = new javax.swing.JTextField();
+        costLabel = new javax.swing.JLabel();
+        costTxt = new javax.swing.JTextField();
+        startDateLabel = new javax.swing.JLabel();
+        endDateLabel = new javax.swing.JLabel();
+        personelLabel = new javax.swing.JLabel();
+        progressLabel = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
+        jTextField2 = new javax.swing.JTextField();
+        jTextField3 = new javax.swing.JTextField();
+        jComboBox1 = new javax.swing.JComboBox<>();
         disbursePanel = new javax.swing.JPanel();
+        countyStatsPanel = new javax.swing.JPanel();
         statusLabel = new javax.swing.JLabel();
         homeMenuBar = new javax.swing.JMenuBar();
         fileMenu = new javax.swing.JMenu();
@@ -68,18 +81,17 @@ public class HomeView extends javax.swing.JFrame {
         dashLabel.setText("Dashboard");
 
         projectHeaderLabel.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        projectHeaderLabel.setText("County Projects");
+        projectHeaderLabel.setText("Project Details");
 
-        jLabel2.setText("Title:");
+        titleLabel.setText("Title");
 
-        jLabel3.setText("Project Manager:");
+        sponsorLabel.setText("Project Sponsor");
 
-        jLabel4.setText("Start Date:");
+        pmLabel.setText("Project Manager");
 
-        jLabel5.setText("End Date:");
+        activitiesLabel.setText("No. of Activities");
 
-        jLabel6.setText("Number of Activities:");
-
+        addBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Project/images/icons8-plus-16.png"))); // NOI18N
         addBtn.setText("Add");
         addBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -100,80 +112,153 @@ public class HomeView extends javax.swing.JFrame {
         ));
         projectsScrollPane.setViewportView(projectsTable);
 
+        updateBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Project/images/icons8-update-16.png"))); // NOI18N
+        updateBtn.setText("Update");
+
+        deleteBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Project/images/icons8-trash-16.png"))); // NOI18N
+        deleteBtn.setText("Delete");
+
+        budgetLabel.setText("Budget");
+
+        costLabel.setText("Actual Cost");
+
+        startDateLabel.setText("Start Date");
+
+        endDateLabel.setText("End Date");
+
+        personelLabel.setText("Personnel");
+
+        progressLabel.setText("Progress");
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" }));
+
         javax.swing.GroupLayout projectPanelLayout = new javax.swing.GroupLayout(projectPanel);
         projectPanel.setLayout(projectPanelLayout);
         projectPanelLayout.setHorizontalGroup(
             projectPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(projectPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(projectPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(projectPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(projectHeaderLabel)
-                        .addGroup(projectPanelLayout.createSequentialGroup()
-                            .addComponent(jLabel6)
-                            .addGap(18, 18, 18)
-                            .addComponent(jTextField5, javax.swing.GroupLayout.DEFAULT_SIZE, 105, Short.MAX_VALUE))
-                        .addGroup(projectPanelLayout.createSequentialGroup()
-                            .addGroup(projectPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel2)
-                                .addComponent(jLabel3)
-                                .addComponent(jLabel4)
-                                .addComponent(jLabel5))
-                            .addGap(35, 35, 35)
-                            .addGroup(projectPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 105, Short.MAX_VALUE)
-                                .addComponent(jTextField2)
-                                .addComponent(jTextField3)
-                                .addComponent(jTextField4))))
-                    .addComponent(addBtn))
-                .addGap(18, 18, 18)
-                .addComponent(projectsScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 502, Short.MAX_VALUE))
+                .addGroup(projectPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(projectPanelLayout.createSequentialGroup()
+                        .addGroup(projectPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(projectHeaderLabel)
+                            .addGroup(projectPanelLayout.createSequentialGroup()
+                                .addGroup(projectPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(titleLabel)
+                                    .addComponent(sponsorLabel)
+                                    .addComponent(pmLabel)
+                                    .addComponent(activitiesLabel)
+                                    .addComponent(budgetLabel)
+                                    .addComponent(costLabel)
+                                    .addComponent(startDateLabel)
+                                    .addComponent(endDateLabel)
+                                    .addComponent(personelLabel)
+                                    .addComponent(progressLabel))
+                                .addGap(35, 35, 35)
+                                .addGroup(projectPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(titleTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 105, Short.MAX_VALUE)
+                                    .addComponent(sponsorTxt)
+                                    .addComponent(pmTxt)
+                                    .addComponent(activitiesTxt)
+                                    .addComponent(budgetTxt)
+                                    .addComponent(costTxt)
+                                    .addComponent(jTextField3)
+                                    .addComponent(jTextField1)
+                                    .addComponent(jTextField2))))
+                        .addGap(76, 76, 76))
+                    .addGroup(projectPanelLayout.createSequentialGroup()
+                        .addComponent(addBtn)
+                        .addGap(18, 18, 18)
+                        .addComponent(updateBtn)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                        .addComponent(deleteBtn)
+                        .addGap(18, 18, 18)))
+                .addComponent(projectsScrollPane))
         );
         projectPanelLayout.setVerticalGroup(
             projectPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(projectPanelLayout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addComponent(projectHeaderLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(projectPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(projectPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(13, 13, 13)
-                .addGroup(projectPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(projectPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(projectPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel6))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 105, Short.MAX_VALUE)
-                .addComponent(addBtn)
-                .addGap(52, 52, 52))
-            .addComponent(projectsScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addGroup(projectPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(projectPanelLayout.createSequentialGroup()
+                        .addGap(21, 21, 21)
+                        .addComponent(projectHeaderLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(projectPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(titleLabel)
+                            .addComponent(titleTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(projectPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(sponsorLabel)
+                            .addComponent(sponsorTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(13, 13, 13)
+                        .addGroup(projectPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(pmLabel)
+                            .addComponent(pmTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(projectPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(activitiesLabel)
+                            .addComponent(activitiesTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(projectPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(budgetLabel)
+                            .addComponent(budgetTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(projectPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(costLabel)
+                            .addComponent(costTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(projectPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(startDateLabel)
+                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(projectPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(endDateLabel)
+                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(9, 9, 9)
+                        .addGroup(projectPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(personelLabel)
+                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(projectPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(progressLabel)
+                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(projectPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(addBtn)
+                            .addComponent(updateBtn)
+                            .addComponent(deleteBtn)))
+                    .addComponent(projectsScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 502, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
-        mainTabbedPane.addTab("Projects", new javax.swing.ImageIcon(getClass().getResource("/Project/images/icons8-project-50.png")), projectPanel); // NOI18N
+        mainTabbedPane.addTab("Projects ", new javax.swing.ImageIcon(getClass().getResource("/Project/images/icons8-project-50.png")), projectPanel); // NOI18N
 
         javax.swing.GroupLayout disbursePanelLayout = new javax.swing.GroupLayout(disbursePanel);
         disbursePanel.setLayout(disbursePanelLayout);
         disbursePanelLayout.setHorizontalGroup(
             disbursePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 753, Short.MAX_VALUE)
+            .addGap(0, 757, Short.MAX_VALUE)
         );
         disbursePanelLayout.setVerticalGroup(
             disbursePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 368, Short.MAX_VALUE)
+            .addGap(0, 513, Short.MAX_VALUE)
         );
 
-        mainTabbedPane.addTab("Disbursements", new javax.swing.ImageIcon(getClass().getResource("/Project/images/icons8-cash-in-hand-50.png")), disbursePanel); // NOI18N
+        mainTabbedPane.addTab("Disbursements ", new javax.swing.ImageIcon(getClass().getResource("/Project/images/icons8-cash-in-hand-50.png")), disbursePanel); // NOI18N
+
+        javax.swing.GroupLayout countyStatsPanelLayout = new javax.swing.GroupLayout(countyStatsPanel);
+        countyStatsPanel.setLayout(countyStatsPanelLayout);
+        countyStatsPanelLayout.setHorizontalGroup(
+            countyStatsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 757, Short.MAX_VALUE)
+        );
+        countyStatsPanelLayout.setVerticalGroup(
+            countyStatsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 513, Short.MAX_VALUE)
+        );
+
+        mainTabbedPane.addTab("County Stats ", new javax.swing.ImageIcon(getClass().getResource("/Project/images/icons8-statistics-50.png")), countyStatsPanel); // NOI18N
 
         fileMenu.setText("File");
 
@@ -251,7 +336,7 @@ public class HomeView extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(dashLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(mainTabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, 432, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(mainTabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, 577, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(statusLabel)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -313,32 +398,45 @@ public class HomeView extends javax.swing.JFrame {
     private javax.swing.JMenuItem aboutMI;
     private javax.swing.JMenuItem accountMI;
     private javax.swing.JMenu accountMenu;
+    private javax.swing.JLabel activitiesLabel;
+    private javax.swing.JTextField activitiesTxt;
     private javax.swing.JButton addBtn;
+    private javax.swing.JLabel budgetLabel;
+    private javax.swing.JTextField budgetTxt;
+    private javax.swing.JLabel costLabel;
+    private javax.swing.JTextField costTxt;
+    private javax.swing.JPanel countyStatsPanel;
     private javax.swing.JLabel dashLabel;
+    private javax.swing.JButton deleteBtn;
     private javax.swing.JMenuItem disburseMI;
     private javax.swing.JPanel disbursePanel;
+    private javax.swing.JLabel endDateLabel;
     private javax.swing.JMenuItem expensesMI;
     private javax.swing.JMenu fileMenu;
     private javax.swing.JMenu helpMenu;
     private javax.swing.JMenuBar homeMenuBar;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
     private javax.swing.JMenuItem logoutMI;
     private javax.swing.JTabbedPane mainTabbedPane;
+    private javax.swing.JLabel personelLabel;
+    private javax.swing.JLabel pmLabel;
+    private javax.swing.JTextField pmTxt;
+    private javax.swing.JLabel progressLabel;
     private javax.swing.JLabel projectHeaderLabel;
     private javax.swing.JPanel projectPanel;
     private javax.swing.JMenuItem projectsMI;
     private javax.swing.JScrollPane projectsScrollPane;
     private javax.swing.JTable projectsTable;
+    private javax.swing.JLabel sponsorLabel;
+    private javax.swing.JTextField sponsorTxt;
+    private javax.swing.JLabel startDateLabel;
     private javax.swing.JLabel statusLabel;
+    private javax.swing.JLabel titleLabel;
+    private javax.swing.JTextField titleTxt;
+    private javax.swing.JButton updateBtn;
     private javax.swing.JLabel welcomeLabel;
     // End of variables declaration//GEN-END:variables
 }

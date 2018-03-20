@@ -39,7 +39,7 @@ public class LoginView extends javax.swing.JFrame {
         usernameTxt = new javax.swing.JTextField();
         loginBtn = new javax.swing.JButton();
         cancelBtn = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
+        loginLabel = new javax.swing.JLabel();
         registerLabel = new javax.swing.JLabel();
         passTxt = new javax.swing.JPasswordField();
 
@@ -55,6 +55,7 @@ public class LoginView extends javax.swing.JFrame {
 
         usernameTxt.setToolTipText("enter your username");
 
+        loginBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Project/images/icons8-login-16.png"))); // NOI18N
         loginBtn.setText("Login");
         loginBtn.setToolTipText("Click to login");
         loginBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -63,6 +64,7 @@ public class LoginView extends javax.swing.JFrame {
             }
         });
 
+        cancelBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Project/images/icons8-cancel-16.png"))); // NOI18N
         cancelBtn.setText("Cancel");
         cancelBtn.setToolTipText("Cancel and exit");
         cancelBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -71,8 +73,8 @@ public class LoginView extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setFont(new java.awt.Font("Adobe Garamond Pro Bold", 0, 18)); // NOI18N
-        jLabel1.setText("LOGIN");
+        loginLabel.setFont(new java.awt.Font("Adobe Garamond Pro Bold", 0, 18)); // NOI18N
+        loginLabel.setText("LOGIN");
 
         registerLabel.setForeground(new java.awt.Color(0, 51, 255));
         registerLabel.setText("no account? register here");
@@ -85,6 +87,11 @@ public class LoginView extends javax.swing.JFrame {
         });
 
         passTxt.setToolTipText("enter the password");
+        passTxt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                passTxtActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -94,7 +101,7 @@ public class LoginView extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(32, 32, 32)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
+                    .addComponent(loginLabel)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addGroup(layout.createSequentialGroup()
                             .addComponent(usernameLabel)
@@ -120,7 +127,7 @@ public class LoginView extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(headerLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(loginLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(usernameLabel)
@@ -135,7 +142,7 @@ public class LoginView extends javax.swing.JFrame {
                     .addComponent(cancelBtn))
                 .addGap(18, 18, 18)
                 .addComponent(registerLabel)
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         pack();
@@ -163,6 +170,11 @@ public class LoginView extends javax.swing.JFrame {
         
     }//GEN-LAST:event_loginBtnActionPerformed
 
+    private void passTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passTxtActionPerformed
+        // Call login action if user presses enter key in password field
+        this.loginBtnActionPerformed(evt);
+    }//GEN-LAST:event_passTxtActionPerformed
+
     private boolean dataValid() {
         loginDetails[0] = usernameTxt.getText().trim();
         loginDetails[1] = Arrays.toString(passTxt.getPassword());
@@ -176,13 +188,13 @@ public class LoginView extends javax.swing.JFrame {
     
     /**
      * @param args the command line arguments
-     */
+     *
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
+         *
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -204,17 +216,17 @@ public class LoginView extends javax.swing.JFrame {
         //</editor-fold>
         //</editor-fold>
 
-        /* Create and display the form */
+        /* Create and display the form *
         java.awt.EventQueue.invokeLater(() -> {
             new LoginView().setVisible(true);
         });
-    }
+    }*/
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cancelBtn;
     private javax.swing.JLabel headerLabel;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JButton loginBtn;
+    private javax.swing.JLabel loginLabel;
     private javax.swing.JLabel passLabel;
     private javax.swing.JPasswordField passTxt;
     private javax.swing.JLabel registerLabel;

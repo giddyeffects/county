@@ -18,7 +18,7 @@ public class RegistrationView extends javax.swing.JFrame {
     String username = "";
     String fullname = "";
     String email = "";
-    char[] pass1;
+    char[] pass1; //using char[] prevents using UserModel?
     char[] pass2;
     String county = "";
     String[] userDetails = new String[5];
@@ -182,7 +182,7 @@ public class RegistrationView extends javax.swing.JFrame {
             userDetails[2] = email;
             userDetails[3] = encryptedPass;
             userDetails[4] = county;
-            if (Utils.saveUser(userDetails)) {
+            if (UserModel.save(userDetails)) {
                 Utils.showDialog("User created. You can now login","Info");
                 //close the registration window
                 this.dispose();
@@ -199,7 +199,7 @@ public class RegistrationView extends javax.swing.JFrame {
      * Load counties dropdown
      */
     private void loadCounties() {
-        countyTxt = Utils.getCounties(countyTxt);
+        countyTxt = CountyModel.getCountyNames(countyTxt);
     }
     
     private boolean dataValid() {
@@ -220,7 +220,7 @@ public class RegistrationView extends javax.swing.JFrame {
             return false;            
         }
         //username must be unique
-        if(Utils.userExists(username)) {
+        if(UserModel.exists(username)) {
             Utils.showDialog("Username "+username+" exists. Try another username", "Error");
             return false;            
         }
@@ -253,13 +253,13 @@ public class RegistrationView extends javax.swing.JFrame {
     
     /**
      * @param args the command line arguments
-     */
+     *
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
+         *
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -275,11 +275,11 @@ public class RegistrationView extends javax.swing.JFrame {
         
         //</editor-fold>
 
-        /* Create and display the form */
+        /* Create and display the form *
         java.awt.EventQueue.invokeLater(() -> {
             new RegistrationView().setVisible(true);
         });
-    }
+    }*/
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPasswordField confirmPassTxt;

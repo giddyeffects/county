@@ -32,6 +32,7 @@ public class DBConnect {
     //database table name CONSTANTS
     public static final String COUNTIES_TABLE = "counties";
     public static final String USERS_TABLE = "users";
+    public static final String PROJECTS_TABLE = "projects";
     
     //instance variables
     private static Connection connection;

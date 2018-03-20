@@ -31,29 +31,6 @@ public class Utils {
         return pattern.matcher(s).matches();
     }
     
-    public static boolean userExists(String username) {
-        boolean exists = false;
-        ResultSet rs = null;
-        PreparedStatement stmt = null;
-        try {
-            String sql = "SELECT * FROM `"+ DBConnect.USERS_TABLE + "` "
-                    + "WHERE `username` = ?";
-            stmt = Utils.db().connect().prepareStatement(sql);
-            stmt.setString(1, username);
-            rs = stmt.executeQuery();
-            if(rs.next()) {
-                //username exists
-                exists = true;
-            }
-        } catch (SQLException e) {
-            
-        } finally {
-            Utils.db().close(stmt);
-        }
-        
-        return exists;
-    }
-    
     public static boolean emailValid(String email) {
         boolean isValid = false;
         try {
@@ -72,24 +49,6 @@ public class Utils {
     
     public static boolean checkPassword(String pass, String encryptedPass) {
         return new BasicPasswordEncryptor().checkPassword(pass, encryptedPass);
-    }
-
-    public static boolean saveUser(String[] user) {
-        boolean status = false;
-        try {
-            String sql = "INSERT INTO `"+ DBConnect.USERS_TABLE + "` "
-                    + "(`fullname`, `username`, `email`, `password`, `county`)"
-                    + " VALUES (?, ?, ?, ?, ?)";
-            PreparedStatement stmt = Utils.db().connect().prepareStatement(sql);
-            for (int i=0; i < 5; i++) {
-                stmt.setString(i+1, user[i]);
-            }
-            Utils.db().execute(stmt);
-            status = true;
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return status;
     }
     
     public static boolean login(String[] user) {
@@ -135,18 +94,6 @@ public class Utils {
         return new DBConnect();
     }
     
-    public static JComboBox getCounties(JComboBox dd) {
-        try {
-            ResultSet rs = Utils.db().getResult("SELECT name FROM "+DBConnect.COUNTIES_TABLE);
-            while(rs.next()) {
-                //System.out.println(rs.getString("name"));
-                dd.addItem(rs.getString("name"));
-            }
-        } catch (Exception e) {
-            
-        }
-        return dd;
-    }
     
     public static void showDialog(String msg, String title) {
         if(null != title)switch (title) {
