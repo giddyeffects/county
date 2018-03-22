@@ -7,6 +7,7 @@ package Project;
 
 import java.sql.Date;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -35,7 +36,7 @@ public class ProjectModel {
         budget = b;
         actual_cost = cost;
         start_date = start;
-        end_date =end;
+        end_date = end;
     }
     //getters
     
@@ -54,10 +55,22 @@ public class ProjectModel {
         boolean status = false;
         try {
             String sql = "INSERT INTO `"+ DBConnect.PROJECTS_TABLE +"` "
-                    + "(`user_id`, `county_id`, `title`, `sponsor`, `manager`, ``, ``, ``)"
-                    + " VALUES (?, ?, ?, ?, ?)";
+                    + "(`user_id`, `county_id`, `title`, `sponsor`, `manager`, `activities`, `start_date`, `end_date`,"
+                    + "`budget`, `actual_cost`,`personnel`,`progress`)"
+                    + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement stmt = Utils.db().connect().prepareStatement(sql);
-
+            stmt.setInt(1, model.user_id);
+            stmt.setInt(2, model.county_id);
+            stmt.setString(3, model.title);
+            stmt.setString(4, model.sponsor);
+            stmt.setString(5, model.manager);
+            stmt.setInt(6, model.activities);
+            stmt.setDate(7, model.start_date);
+            stmt.setDate(8, model.end_date);
+            stmt.setString(9, model.budget);
+            stmt.setString(10, model.actual_cost);
+            stmt.setInt(11, model.personnel);
+            stmt.setInt(12, model.progress);
             Utils.db().execute(stmt);
             status = true;
         } catch (SQLException e) {
@@ -67,13 +80,53 @@ public class ProjectModel {
     
     public static boolean update(ProjectModel model) {
         boolean status = false;
-        
+        try {
+            String sql = "UPDATE `"+ DBConnect.PROJECTS_TABLE +"` SET "
+                    + "`user_id` = ?, `county_id` = ?, `title` = ?, `sponsor` = ?, `manager` = ?, `activities` = ?,"
+                    + " `start_date` = ?, `end_date` = ?,`budget` = ?, `actual_cost` = ?,`personnel` = ?,`progress` = ?"
+                    + " WHERE `id` = "+ model.id;
+            PreparedStatement stmt = Utils.db().connect().prepareStatement(sql);
+            stmt.setInt(1, model.user_id);
+            stmt.setInt(2, model.county_id);
+            stmt.setString(3, model.title);
+            stmt.setString(4, model.sponsor);
+            stmt.setString(5, model.manager);
+            stmt.setInt(6, model.activities);
+            stmt.setDate(7, model.start_date);
+            stmt.setDate(8, model.end_date);
+            stmt.setString(9, model.budget);
+            stmt.setString(10, model.actual_cost);
+            stmt.setInt(11, model.personnel);
+            stmt.setInt(12, model.progress);
+            Utils.db().execute(stmt);
+            status = true;
+        } catch (SQLException e) {
+        }
         return status;
     }
     
     public static boolean delete(int id) {
         boolean status = false;
-        
+        try {
+            String sql = "DELETE FROM `"+ DBConnect.PROJECTS_TABLE + "` "
+                    + "WHERE `id` = ?";
+            PreparedStatement stmt = Utils.db().connect().prepareStatement(sql);
+            stmt.setInt(1, id);
+            Utils.db().execute(stmt);
+            status = true;
+        } catch (SQLException e) {
+            
+        }
         return status;
+    }
+    
+    public static ProjectModel find(int id) {
+        ProjectModel model=null;
+        String sql = "SELECT * FROM " + DBConnect.PROJECTS_TABLE + " "
+                + "WHERE `id` = ?";
+        ResultSet rs = null;
+        PreparedStatement stmt = null;
+        
+        return model;
     }
 }

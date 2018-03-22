@@ -15,7 +15,7 @@ import java.sql.SQLException;
  * @author 101794
  */
 public class UserModel {
-    private String username, fullname, email, county;
+    private String username, fullname, email, county, pass;
     private int id, role;
     
     UserModel(String u, String f, String e, String c, int r, int i) {
@@ -38,6 +38,17 @@ public class UserModel {
     }
     public String getCounty() {
         return county;
+    }
+    public int getCountyID() {
+        try {
+            ResultSet rs = Utils.db().getResult("SELECT `id` FROM `" + DBConnect.COUNTIES_TABLE + "`"
+                    + " WHERE `name` = " + this.county);
+            if (rs.next()) {
+                return rs.getInt("id");
+            }
+        } catch (Exception e) {
+        }
+        return 0;
     }
     //two roles for now. System ADmin and normal user
     public String getRole(){
@@ -71,7 +82,7 @@ public class UserModel {
         return exists;
     }
     
-    public static boolean save(String[] user) {
+    public static boolean add(String[] user) {
         boolean status = false;
         try {
             String sql = "INSERT INTO `"+ DBConnect.USERS_TABLE + "` "
@@ -91,14 +102,37 @@ public class UserModel {
     
     public static boolean update(UserModel user) {
         boolean status = false;
-        
-        
+        try {
+            String sql = "UPDATE `"+ DBConnect.USERS_TABLE + "` SET "
+                    + "`fullname` = ?, `username` = ?, `email` = ?, `password` = ?, `county` = ?, `role` = ?"
+                    + " WHERE `id`= "+ user.id;
+            PreparedStatement stmt = Utils.db().connect().prepareStatement(sql);
+            stmt.setString(1, user.fullname);
+            stmt.setString(2, user.username);
+            stmt.setString(3, user.email);
+            stmt.setString(4, user.pass);//??
+            stmt.setString(5, user.county);
+            stmt.setInt(6, user.role);
+            Utils.db().execute(stmt);
+            status = true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }       
         return status;
     }
     
     public static boolean delete(int id) {
         boolean status = false;
-        
+        try {
+            String sql = "DELETE FROM `"+ DBConnect.USERS_TABLE + "` "
+                    + "WHERE `id` = ?";
+            PreparedStatement stmt = Utils.db().connect().prepareStatement(sql);
+            stmt.setInt(1, id);
+            Utils.db().execute(stmt);
+            status = true;
+        } catch (SQLException e) {
+            
+        }      
         
         return status;
     }

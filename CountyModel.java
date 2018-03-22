@@ -13,6 +13,7 @@ import javax.swing.JComboBox;
  * @author user
  */
 public class CountyModel {
+    private int id;
 
     public static JComboBox getCountyNames(JComboBox dd) {
         try {

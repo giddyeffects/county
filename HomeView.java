@@ -42,24 +42,24 @@ public class HomeView extends javax.swing.JFrame {
         titleTxt = new javax.swing.JTextField();
         sponsorTxt = new javax.swing.JTextField();
         pmTxt = new javax.swing.JTextField();
-        activitiesTxt = new javax.swing.JTextField();
-        addBtn = new javax.swing.JButton();
+        addProjectBtn = new javax.swing.JButton();
         projectsScrollPane = new javax.swing.JScrollPane();
         projectsTable = new javax.swing.JTable();
-        updateBtn = new javax.swing.JButton();
-        deleteBtn = new javax.swing.JButton();
+        updateProjectBtn = new javax.swing.JButton();
+        deleteProjectBtn = new javax.swing.JButton();
         budgetLabel = new javax.swing.JLabel();
-        budgetTxt = new javax.swing.JTextField();
         costLabel = new javax.swing.JLabel();
-        costTxt = new javax.swing.JTextField();
         startDateLabel = new javax.swing.JLabel();
         endDateLabel = new javax.swing.JLabel();
         personelLabel = new javax.swing.JLabel();
         progressLabel = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        progressTxt = new javax.swing.JComboBox<>();
+        activitiesTxt = new javax.swing.JFormattedTextField();
+        budgetTxt = new javax.swing.JFormattedTextField();
+        costTxt = new javax.swing.JFormattedTextField();
+        startTxt = new javax.swing.JFormattedTextField();
+        personnelTxt = new javax.swing.JFormattedTextField();
+        endTxt = new javax.swing.JFormattedTextField();
         disbursePanel = new javax.swing.JPanel();
         countyStatsPanel = new javax.swing.JPanel();
         statusLabel = new javax.swing.JLabel();
@@ -91,11 +91,11 @@ public class HomeView extends javax.swing.JFrame {
 
         activitiesLabel.setText("No. of Activities");
 
-        addBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Project/images/icons8-plus-16.png"))); // NOI18N
-        addBtn.setText("Add");
-        addBtn.addActionListener(new java.awt.event.ActionListener() {
+        addProjectBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Project/images/icons8-plus-16.png"))); // NOI18N
+        addProjectBtn.setText("Add");
+        addProjectBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                addBtnActionPerformed(evt);
+                addProjectBtnActionPerformed(evt);
             }
         });
 
@@ -112,11 +112,11 @@ public class HomeView extends javax.swing.JFrame {
         ));
         projectsScrollPane.setViewportView(projectsTable);
 
-        updateBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Project/images/icons8-update-16.png"))); // NOI18N
-        updateBtn.setText("Update");
+        updateProjectBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Project/images/icons8-update-16.png"))); // NOI18N
+        updateProjectBtn.setText("Update");
 
-        deleteBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Project/images/icons8-trash-16.png"))); // NOI18N
-        deleteBtn.setText("Delete");
+        deleteProjectBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Project/images/icons8-trash-16.png"))); // NOI18N
+        deleteProjectBtn.setText("Delete");
 
         budgetLabel.setText("Budget");
 
@@ -130,7 +130,21 @@ public class HomeView extends javax.swing.JFrame {
 
         progressLabel.setText("Progress");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" }));
+        progressTxt.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" }));
+
+        activitiesTxt.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
+
+        budgetTxt.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0.00"))));
+
+        costTxt.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0.00"))));
+
+        startTxt.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("yyyy-MM-dd"))));
+        startTxt.setToolTipText("Date Format yyyy-MM-dd e.g. 2018-03-23");
+
+        personnelTxt.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
+
+        endTxt.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("yyyy-MM-dd"))));
+        endTxt.setToolTipText("Date Format yyyy-MM-dd e.g. 2018-03-23");
 
         javax.swing.GroupLayout projectPanelLayout = new javax.swing.GroupLayout(projectPanel);
         projectPanel.setLayout(projectPanelLayout);
@@ -139,9 +153,15 @@ public class HomeView extends javax.swing.JFrame {
             .addGroup(projectPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(projectPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(projectHeaderLabel)
                     .addGroup(projectPanelLayout.createSequentialGroup()
                         .addGroup(projectPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(projectHeaderLabel)
+                            .addGroup(projectPanelLayout.createSequentialGroup()
+                                .addComponent(addProjectBtn)
+                                .addGap(18, 18, 18)
+                                .addComponent(updateProjectBtn)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                                .addComponent(deleteProjectBtn))
                             .addGroup(projectPanelLayout.createSequentialGroup()
                                 .addGroup(projectPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(titleLabel)
@@ -155,24 +175,19 @@ public class HomeView extends javax.swing.JFrame {
                                     .addComponent(personelLabel)
                                     .addComponent(progressLabel))
                                 .addGap(35, 35, 35)
-                                .addGroup(projectPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(titleTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 105, Short.MAX_VALUE)
+                                .addGroup(projectPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(titleTxt)
                                     .addComponent(sponsorTxt)
                                     .addComponent(pmTxt)
                                     .addComponent(activitiesTxt)
                                     .addComponent(budgetTxt)
                                     .addComponent(costTxt)
-                                    .addComponent(jTextField3)
-                                    .addComponent(jTextField1)
-                                    .addComponent(jTextField2))))
-                        .addGap(76, 76, 76))
-                    .addGroup(projectPanelLayout.createSequentialGroup()
-                        .addComponent(addBtn)
-                        .addGap(18, 18, 18)
-                        .addComponent(updateBtn)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
-                        .addComponent(deleteBtn)
+                                    .addComponent(startTxt)
+                                    .addComponent(personnelTxt)
+                                    .addGroup(projectPanelLayout.createSequentialGroup()
+                                        .addComponent(progressTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(0, 0, Short.MAX_VALUE))
+                                    .addComponent(endTxt))))
                         .addGap(18, 18, 18)))
                 .addComponent(projectsScrollPane))
         );
@@ -210,24 +225,27 @@ public class HomeView extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(projectPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(startDateLabel)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(startTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(projectPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(endDateLabel)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(endTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(9, 9, 9)
                         .addGroup(projectPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(personelLabel)
-                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(projectPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(progressLabel)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(projectPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(addBtn)
-                            .addComponent(updateBtn)
-                            .addComponent(deleteBtn)))
+                            .addGroup(projectPanelLayout.createSequentialGroup()
+                                .addComponent(personelLabel)
+                                .addGap(24, 24, 24)
+                                .addGroup(projectPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(progressLabel)
+                                    .addComponent(progressTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(projectPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(addProjectBtn)
+                                    .addComponent(updateProjectBtn)
+                                    .addComponent(deleteProjectBtn)))
+                            .addGroup(projectPanelLayout.createSequentialGroup()
+                                .addComponent(personnelTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))))
                     .addComponent(projectsScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 502, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -361,10 +379,28 @@ public class HomeView extends javax.swing.JFrame {
         
     }//GEN-LAST:event_aboutMIActionPerformed
 
-    private void addBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBtnActionPerformed
+    private void addProjectBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addProjectBtnActionPerformed
         // Add a new project
-    }//GEN-LAST:event_addBtnActionPerformed
+        if (dataValid("project")) {
+            
+        }
+    }//GEN-LAST:event_addProjectBtnActionPerformed
 
+    private boolean dataValid(String type) {
+        if("project".equals(type)) {
+            int user_id = Utils.user.getID();
+            int county_id = Utils.user.getCountyID();
+            String title = titleTxt.getText().trim();
+            String sponsor = sponsorTxt.getText().trim();
+            String pm = pmTxt.getText().trim();
+            int activities = Integer.parseInt(activitiesTxt.getText().trim());
+        } else if ("disburse".equals(type)) {
+            
+        }
+        
+        return true;
+    }
+    
     /**
      * @param args the command line arguments
      *
@@ -399,32 +435,31 @@ public class HomeView extends javax.swing.JFrame {
     private javax.swing.JMenuItem accountMI;
     private javax.swing.JMenu accountMenu;
     private javax.swing.JLabel activitiesLabel;
-    private javax.swing.JTextField activitiesTxt;
-    private javax.swing.JButton addBtn;
+    private javax.swing.JFormattedTextField activitiesTxt;
+    private javax.swing.JButton addProjectBtn;
     private javax.swing.JLabel budgetLabel;
-    private javax.swing.JTextField budgetTxt;
+    private javax.swing.JFormattedTextField budgetTxt;
     private javax.swing.JLabel costLabel;
-    private javax.swing.JTextField costTxt;
+    private javax.swing.JFormattedTextField costTxt;
     private javax.swing.JPanel countyStatsPanel;
     private javax.swing.JLabel dashLabel;
-    private javax.swing.JButton deleteBtn;
+    private javax.swing.JButton deleteProjectBtn;
     private javax.swing.JMenuItem disburseMI;
     private javax.swing.JPanel disbursePanel;
     private javax.swing.JLabel endDateLabel;
+    private javax.swing.JFormattedTextField endTxt;
     private javax.swing.JMenuItem expensesMI;
     private javax.swing.JMenu fileMenu;
     private javax.swing.JMenu helpMenu;
     private javax.swing.JMenuBar homeMenuBar;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
     private javax.swing.JMenuItem logoutMI;
     private javax.swing.JTabbedPane mainTabbedPane;
     private javax.swing.JLabel personelLabel;
+    private javax.swing.JFormattedTextField personnelTxt;
     private javax.swing.JLabel pmLabel;
     private javax.swing.JTextField pmTxt;
     private javax.swing.JLabel progressLabel;
+    private javax.swing.JComboBox<String> progressTxt;
     private javax.swing.JLabel projectHeaderLabel;
     private javax.swing.JPanel projectPanel;
     private javax.swing.JMenuItem projectsMI;
@@ -433,10 +468,11 @@ public class HomeView extends javax.swing.JFrame {
     private javax.swing.JLabel sponsorLabel;
     private javax.swing.JTextField sponsorTxt;
     private javax.swing.JLabel startDateLabel;
+    private javax.swing.JFormattedTextField startTxt;
     private javax.swing.JLabel statusLabel;
     private javax.swing.JLabel titleLabel;
     private javax.swing.JTextField titleTxt;
-    private javax.swing.JButton updateBtn;
+    private javax.swing.JButton updateProjectBtn;
     private javax.swing.JLabel welcomeLabel;
     // End of variables declaration//GEN-END:variables
 }

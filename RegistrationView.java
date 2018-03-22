@@ -182,7 +182,7 @@ public class RegistrationView extends javax.swing.JFrame {
             userDetails[2] = email;
             userDetails[3] = encryptedPass;
             userDetails[4] = county;
-            if (UserModel.save(userDetails)) {
+            if (UserModel.add(userDetails)) {
                 Utils.showDialog("User created. You can now login","Info");
                 //close the registration window
                 this.dispose();
