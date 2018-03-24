@@ -41,11 +41,18 @@ public class ProjectModel {
     //getters
     
     
-    //get project list
+    //get projects list
     ArrayList<ProjectModel> getProjectsList() {
         ArrayList<ProjectModel> projectsList = new ArrayList<>();
         String sql = "SELECT * FROM " + DBConnect.PROJECTS_TABLE + " "
                 + "WHERE user_id = "+ Utils.user.getID();
+        ResultSet rs = Utils.db().getResult(sql);
+        ProjectModel project;
+        while (rs.next()) {
+         project = new ProjectModel(rs.getInt("id"), rs.getInt("county_id"), rs.getInt("user_id"), rs.getInt("activities"), rs.getInt("personnel") 
+            );//
+         projectsList.add(project);
+        }
         
         
         return projectsList;
