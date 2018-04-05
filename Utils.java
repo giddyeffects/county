@@ -38,7 +38,7 @@ public class Utils {
             emailAddress.validate();
             isValid = true;
         } catch (AddressException e) {
-            
+            Utils.showDialog(e.getMessage(), "Error");
         }
         return isValid;
     }
@@ -56,7 +56,7 @@ public class Utils {
         ResultSet rs = null;
         PreparedStatement stmt = null;
         try {
-            String sql = "SELECT * FROM `"+ DBConnect.USERS_TABLE + "` "
+            String sql = "SELECT * FROM `"+ DB.USERS_TABLE + "` "
                     + "WHERE `username` = ?";
             stmt = Utils.db().connect().prepareStatement(sql);
             stmt.setString(1, user[0]);
@@ -76,7 +76,7 @@ public class Utils {
                 showDialog("User "+user[0]+" not found","Alert");
             }
         } catch (SQLException e) {
-            
+            Utils.showDialog(e.getMessage(), "Error");
         } finally {
             Utils.db().close(stmt);
         }
@@ -88,10 +88,12 @@ public class Utils {
         Utils.loggedIn = false;
         //clear user Object
         Utils.user = null;
+        //disconnect the database connection
+        Utils.db().disconnect();
     }
 
-    public static DBConnect db() {
-        return new DBConnect();
+    public static DB db() {
+        return new DB();
     }
     
     

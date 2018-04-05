@@ -18,7 +18,14 @@ public class HomeView extends javax.swing.JFrame {
         initComponents();
         if(Utils.loggedIn) {
             welcomeLabel.setText("Welcome "+Utils.user.getFullname());
+            projectHeaderLabel.setText("Project Details:"+ Utils.user.getCounty());
         }
+        //show counties
+        CountyModel counties = new CountyModel();
+        counties.showList(countyStatsTable);
+        //show projects
+        ProjectModel projects = new ProjectModel();
+        projects.showList(projectsTable);
     }
 
     /**
@@ -62,6 +69,8 @@ public class HomeView extends javax.swing.JFrame {
         endTxt = new javax.swing.JFormattedTextField();
         disbursePanel = new javax.swing.JPanel();
         countyStatsPanel = new javax.swing.JPanel();
+        countyStatsScrollPane = new javax.swing.JScrollPane();
+        countyStatsTable = new javax.swing.JTable();
         statusLabel = new javax.swing.JLabel();
         homeMenuBar = new javax.swing.JMenuBar();
         fileMenu = new javax.swing.JMenu();
@@ -101,13 +110,10 @@ public class HomeView extends javax.swing.JFrame {
 
         projectsTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Title", "Sponsor", "Project Manager", "Budget", "Start Date", "End Date", "Progress"
             }
         ));
         projectsScrollPane.setViewportView(projectsTable);
@@ -265,15 +271,39 @@ public class HomeView extends javax.swing.JFrame {
 
         mainTabbedPane.addTab("Disbursements ", new javax.swing.ImageIcon(getClass().getResource("/Project/images/icons8-cash-in-hand-50.png")), disbursePanel); // NOI18N
 
+        countyStatsTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Code", "County Name", "Former Province", "Area", "Population", "Capital"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, true, true, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        countyStatsScrollPane.setViewportView(countyStatsTable);
+
         javax.swing.GroupLayout countyStatsPanelLayout = new javax.swing.GroupLayout(countyStatsPanel);
         countyStatsPanel.setLayout(countyStatsPanelLayout);
         countyStatsPanelLayout.setHorizontalGroup(
             countyStatsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 757, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, countyStatsPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(countyStatsScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 737, Short.MAX_VALUE)
+                .addContainerGap())
         );
         countyStatsPanelLayout.setVerticalGroup(
             countyStatsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 513, Short.MAX_VALUE)
+            .addGroup(countyStatsPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(countyStatsScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 491, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         mainTabbedPane.addTab("County Stats ", new javax.swing.ImageIcon(getClass().getResource("/Project/images/icons8-statistics-50.png")), countyStatsPanel); // NOI18N
@@ -442,6 +472,8 @@ public class HomeView extends javax.swing.JFrame {
     private javax.swing.JLabel costLabel;
     private javax.swing.JFormattedTextField costTxt;
     private javax.swing.JPanel countyStatsPanel;
+    private javax.swing.JScrollPane countyStatsScrollPane;
+    private javax.swing.JTable countyStatsTable;
     private javax.swing.JLabel dashLabel;
     private javax.swing.JButton deleteProjectBtn;
     private javax.swing.JMenuItem disburseMI;

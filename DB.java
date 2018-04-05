@@ -18,7 +18,7 @@ import javax.swing.JOptionPane;
  * Database connection class
  * @author 101794
  */
-public class DBConnect {
+public class DB {
     //class variables
     //initialize database CONSTANTS
     private static final String DATABASE = "mysql";
@@ -71,6 +71,7 @@ public class DBConnect {
             try {
                 connection.close();
                 connection = null;
+                System.out.println("Successfully disconnected the database");
             } catch (SQLException err) {
                 err.printStackTrace();
             }
@@ -146,7 +147,7 @@ public class DBConnect {
     }
     
 //    public static void main(String[] args) {
-//        DBConnect db = new DBConnect();
+//        DB db = new DB();
 //        db.connect();
 //    }
 }
