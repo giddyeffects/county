@@ -76,23 +76,22 @@ public class CountyModel implements Model<CountyModel> {
     
     /**
      * Adds a county to the database
-     * @param model
      * @return boolean
      */
     @Override
-    public boolean add(CountyModel model) {
+    public boolean add() {
         boolean status = false;
         try {
             String sql = "INSERT INTO `"+ DB.COUNTIES_TABLE +"` "
                     + "(`code`, `name`, `province`, `area`, `population`, `capital`)"
                     + " VALUES (?, ?, ?, ?, ?, ?)";
             PreparedStatement stmt = Utils.db().connect().prepareStatement(sql);
-            stmt.setInt(1, model.code);
-            stmt.setString(2, model.name);
-            stmt.setString(3, model.province);
-            stmt.setString(4, model.area);
-            stmt.setInt(5, model.population);
-            stmt.setString(6, model.capital);
+            stmt.setInt(1, code);
+            stmt.setString(2, name);
+            stmt.setString(3, province);
+            stmt.setString(4, area);
+            stmt.setInt(5, population);
+            stmt.setString(6, capital);
             Utils.db().execute(stmt);
             status = true;
         } catch (SQLException e) {
@@ -103,22 +102,21 @@ public class CountyModel implements Model<CountyModel> {
     
     /**
      * Updates a county record
-     * @param model
      * @return boolean
      */
     @Override
-    public boolean update(CountyModel model) {
+    public boolean update(int id) {
         boolean status = false;
         try {
             String sql = "UPDATE `"+ DB.COUNTIES_TABLE +"` SET "
                     + "`name` = ?, `province` = ?, `area` = ?, `population` = ?, `capital` = ?"
-                    + " WHERE `code` = "+ model.code;
+                    + " WHERE `code` = "+ id;
             PreparedStatement stmt = Utils.db().connect().prepareStatement(sql);
-            stmt.setString(1, model.name);
-            stmt.setString(2, model.province);
-            stmt.setString(3, model.area);
-            stmt.setInt(4, model.population);
-            stmt.setString(5, model.capital);
+            stmt.setString(1, name);
+            stmt.setString(2, province);
+            stmt.setString(3, area);
+            stmt.setInt(4, population);
+            stmt.setString(5, capital);
             Utils.db().execute(stmt);
             status = true;
         } catch (SQLException e) {
@@ -183,9 +181,11 @@ public class CountyModel implements Model<CountyModel> {
         try {
             ResultSet rs = Utils.db().getResult(sql);
             CountyModel county;
-            while (rs.next()) {
-                county = new CountyModel(rs.getInt("code"), rs.getString("name"), rs.getString("province"), rs.getString("area"), rs.getInt("population"), rs.getString("capital"));//
-                countiesList.add(county);
+            if(rs != null) {
+                while (rs.next()) {
+                    county = new CountyModel(rs.getInt("code"), rs.getString("name"), rs.getString("province"), rs.getString("area"), rs.getInt("population"), rs.getString("capital"));//
+                    countiesList.add(county);
+                }
             }
         } catch (SQLException e) {
            Utils.showDialog(e.getMessage(), "Error");
@@ -194,9 +194,11 @@ public class CountyModel implements Model<CountyModel> {
         return countiesList;
     }
     
+    @Override
     public void showList(JTable table) {
         ArrayList<CountyModel> countiesList = getList();
         DefaultTableModel model = (DefaultTableModel)table.getModel();
+        model.setRowCount(0);
         Object[] row = new Object[6];
         for ( int i=0; i < countiesList.size(); i++) {
             row[0] = countiesList.get(i).getCode();

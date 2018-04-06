@@ -5,7 +5,7 @@
  */
 package Project;
 
-import java.sql.Date;
+import java.util.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -27,11 +27,28 @@ public class ProjectModel implements Model<ProjectModel> {
     ProjectModel() {
         
     }
-    
+    //constructor for the arraylist
     ProjectModel(int i, int c, int u, int a, int p, int pr, 
             String t, String s, String m, String b, String cost,
             Date start, Date end) {
         id = i;
+        county_id = c;
+        user_id = u;
+        activities = a;
+        personnel = p;
+        progress = pr;
+        title = t;
+        sponsor = s;
+        manager = m;
+        budget = b;
+        actual_cost = cost;
+        start_date = start;
+        end_date = end;
+    }
+    //creating a new project constructor i.e we don't yet know the id
+    ProjectModel(int c, int u, int a, int p, int pr, 
+            String t, String s, String m, String b, String cost,
+            Date start, Date end) {
         county_id = c;
         user_id = u;
         activities = a;
@@ -94,8 +111,26 @@ public class ProjectModel implements Model<ProjectModel> {
     @Override
     public ArrayList<ProjectModel> getList() {
         ArrayList<ProjectModel> projectsList = new ArrayList<>();
-        String sql = "SELECT * FROM " + DB.PROJECTS_TABLE + " "
-                + "WHERE user_id = "+ Utils.user.getID();
+        String sql = "";
+        //if logged in user has role of 0 then get projects belonging to the user
+        //else if user has role of 1 then get projects belonging to that county
+        //else if user has role of 5 then get all projects
+        switch (Utils.user.getRole()) {
+            case 0:
+                sql = "SELECT * FROM " + DB.PROJECTS_TABLE + " "
+                        + "WHERE user_id = "+ Utils.user.getID();
+                break;
+            case 1:
+                sql = "SELECT * FROM " + DB.PROJECTS_TABLE + " "
+                        + "WHERE county_id = "+ Utils.user.getCountyCode();
+                break;
+            case 5:
+                sql = "SELECT * FROM " + DB.PROJECTS_TABLE;
+                break;
+            default:
+                break;
+        }
+        
         try {
             ResultSet rs = Utils.db().getResult(sql);
             ProjectModel project;
@@ -113,19 +148,23 @@ public class ProjectModel implements Model<ProjectModel> {
         return projectsList;
     }
  
+    @Override
     public void showList(JTable table) {
         ArrayList<ProjectModel> projectList = getList();
         //if (projectList.size() > 0) {
             DefaultTableModel model = (DefaultTableModel)table.getModel();
-            Object[] row = new Object[7];
+            model.setRowCount(0);
+            Object[] row = new Object[9];
             for ( int i=0; i < projectList.size(); i++) {
-                row[0] = projectList.get(i).getTitle();
-                row[1] = projectList.get(i).getSponsor();
-                row[2] = projectList.get(i).getManager();
-                row[3] = projectList.get(i).getBudget();
-                row[4] = projectList.get(i).getStartDate();
-                row[5] = projectList.get(i).getEndDate();
-                row[6] = projectList.get(i).getProgress();
+                row[0] = projectList.get(i).getID();
+                row[1] = projectList.get(i).getTitle();
+                row[2] = projectList.get(i).getSponsor();
+                row[3] = projectList.get(i).getManager();
+                row[4] = projectList.get(i).getBudget();
+                row[5] = projectList.get(i).getStartDate();
+                row[6] = projectList.get(i).getEndDate();
+                row[7] = projectList.get(i).getProgress();
+                row[8] = projectList.get(i).getUser();
                 model.addRow(row);
             }
         //}
@@ -134,11 +173,10 @@ public class ProjectModel implements Model<ProjectModel> {
         
     /**
      * Adds a project to the database
-     * @param model
      * @return boolean
      */
     @Override
-    public boolean add(ProjectModel model) {
+    public boolean add() {
         boolean status = false;
         try {
             String sql = "INSERT INTO `"+ DB.PROJECTS_TABLE +"` "
@@ -146,18 +184,18 @@ public class ProjectModel implements Model<ProjectModel> {
                     + "`budget`, `actual_cost`,`personnel`,`progress`)"
                     + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement stmt = Utils.db().connect().prepareStatement(sql);
-            stmt.setInt(1, model.user_id);
-            stmt.setInt(2, model.county_id);
-            stmt.setString(3, model.title);
-            stmt.setString(4, model.sponsor);
-            stmt.setString(5, model.manager);
-            stmt.setInt(6, model.activities);
-            stmt.setDate(7, model.start_date);
-            stmt.setDate(8, model.end_date);
-            stmt.setString(9, model.budget);
-            stmt.setString(10, model.actual_cost);
-            stmt.setInt(11, model.personnel);
-            stmt.setInt(12, model.progress);
+            stmt.setInt(1, user_id);
+            stmt.setInt(2, county_id);
+            stmt.setString(3, title);
+            stmt.setString(4, sponsor);
+            stmt.setString(5, manager);
+            stmt.setInt(6, activities);
+            stmt.setDate(7, new java.sql.Date(start_date.getTime()));
+            stmt.setDate(8, new java.sql.Date(end_date.getTime()));
+            stmt.setString(9, budget);
+            stmt.setString(10, actual_cost);
+            stmt.setInt(11, personnel);
+            stmt.setInt(12, progress);
             Utils.db().execute(stmt);
             status = true;
         } catch (SQLException e) {
@@ -167,26 +205,26 @@ public class ProjectModel implements Model<ProjectModel> {
     }
     
     @Override
-    public boolean update(ProjectModel model) {
+    public boolean update(int id) {
         boolean status = false;
         try {
             String sql = "UPDATE `"+ DB.PROJECTS_TABLE +"` SET "
-                    + "`user_id` = ?, `county_id` = ?, `title` = ?, `sponsor` = ?, `manager` = ?, `activities` = ?,"
+                    + "`county_id` = ?, `title` = ?, `sponsor` = ?, `manager` = ?, `activities` = ?,"
                     + " `start_date` = ?, `end_date` = ?,`budget` = ?, `actual_cost` = ?,`personnel` = ?,`progress` = ?"
-                    + " WHERE `id` = "+ model.id;
+                    + " WHERE `id` = "+ id;
             PreparedStatement stmt = Utils.db().connect().prepareStatement(sql);
-            stmt.setInt(1, model.user_id);
-            stmt.setInt(2, model.county_id);
-            stmt.setString(3, model.title);
-            stmt.setString(4, model.sponsor);
-            stmt.setString(5, model.manager);
-            stmt.setInt(6, model.activities);
-            stmt.setDate(7, model.start_date);
-            stmt.setDate(8, model.end_date);
-            stmt.setString(9, model.budget);
-            stmt.setString(10, model.actual_cost);
-            stmt.setInt(11, model.personnel);
-            stmt.setInt(12, model.progress);
+            //NOTE: user_id is not updated
+            stmt.setInt(1, county_id);
+            stmt.setString(2, title);
+            stmt.setString(3, sponsor);
+            stmt.setString(4, manager);
+            stmt.setInt(5, activities);
+            stmt.setDate(6, new java.sql.Date(start_date.getTime()));
+            stmt.setDate(7, new java.sql.Date(end_date.getTime()));
+            stmt.setString(8, budget);
+            stmt.setString(9, actual_cost);
+            stmt.setInt(10, personnel);
+            stmt.setInt(11, progress);
             Utils.db().execute(stmt);
             status = true;
         } catch (SQLException e) {

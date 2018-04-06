@@ -44,21 +44,21 @@ public class UserModel {
     public String getCounty() {
         return county;
     }
-    public int getCountyID() {
+    public int getCountyCode() {
         try {
-            ResultSet rs = Utils.db().getResult("SELECT `id` FROM `" + DB.COUNTIES_TABLE + "`"
-                    + " WHERE `name` = " + this.county);
+            ResultSet rs = Utils.db().getResult("SELECT `code` FROM `" + DB.COUNTIES_TABLE + "`"
+                    + " WHERE `name` = '" + this.county + "'");
             if (rs.next()) {
-                return rs.getInt("id");
+                return rs.getInt("code");
             }
         } catch (Exception e) {
-            Utils.showDialog(e.getMessage(), "Error");
+            Utils.showDialog("Error getting countID " +e.getMessage(), "Error");
         }
         return 0;
     }
-    //two roles for now. System ADmin and normal user
-    public String getRole(){
-        return (role == 5)?"System Administrator":"Normal User";
+    //
+    public int getRole(){
+        return role;
     }
     
     public int getID(){
@@ -106,19 +106,19 @@ public class UserModel {
         return status;
     }
     
-    public static boolean update(UserModel user) {
+    public boolean update() {
         boolean status = false;
         try {
             String sql = "UPDATE `"+ DB.USERS_TABLE + "` SET "
                     + "`fullname` = ?, `username` = ?, `email` = ?, `password` = ?, `county` = ?, `role` = ?"
-                    + " WHERE `id`= "+ user.id;
+                    + " WHERE `id`= "+ id;
             PreparedStatement stmt = Utils.db().connect().prepareStatement(sql);
-            stmt.setString(1, user.fullname);
-            stmt.setString(2, user.username);
-            stmt.setString(3, user.email);
-            stmt.setString(4, user.pass);//??
-            stmt.setString(5, user.county);
-            stmt.setInt(6, user.role);
+            stmt.setString(1, fullname);
+            stmt.setString(2, username);
+            stmt.setString(3, email);
+            stmt.setString(4, pass);//??
+            stmt.setString(5, county);
+            stmt.setInt(6, role);
             Utils.db().execute(stmt);
             status = true;
         } catch (SQLException e) {
@@ -127,7 +127,7 @@ public class UserModel {
         return status;
     }
     
-    public static boolean delete(int id) {
+    public boolean delete() {
         boolean status = false;
         try {
             String sql = "DELETE FROM `"+ DB.USERS_TABLE + "` "

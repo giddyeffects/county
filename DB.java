@@ -15,7 +15,7 @@ import java.util.Properties;
 import javax.swing.JOptionPane;
 
 /**
- * Database connection class
+ * Database class
  * @author 101794
  */
 public class DB {

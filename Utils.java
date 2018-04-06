@@ -5,14 +5,21 @@
  */
 package Project;
 
+import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.ResultSet;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.TimeZone;
 import java.util.regex.Pattern;
-import javax.swing.JComboBox;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.AddressException;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.Timer;
 import org.jasypt.util.password.BasicPasswordEncryptor;
 
 /**
@@ -115,6 +122,37 @@ public class Utils {
     
     public static int showDialog(String msg) {
         return JOptionPane.showConfirmDialog(null, msg);
+    }
+    
+    public static void getDate() {
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        df.setTimeZone(TimeZone.getTimeZone("Africa/Nairobi"));
+        System.out.println("Current datetime is "+df.format(new Date()));
+    }
+    /**
+     * Show status message text in JLabel label for sec seconds
+     * @param label
+     * @param text
+     * @param secs 
+     * @param status
+     */
+    public static void showStatus(JLabel label, String text, int secs, String status) {
+        label.setText(text);
+        switch (status) {
+            case "success":
+                label.setForeground(Color.GREEN);
+                break;
+            case "error":
+                label.setForeground(Color.RED);
+                break;
+            default:
+                label.setForeground(Color.BLUE);
+                break;
+        }
+        Timer timer = new Timer(secs * 1000, (ActionEvent e) -> {
+            label.setText("");
+        });
+        timer.start();
     }
     
 }

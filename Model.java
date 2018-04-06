@@ -11,9 +11,38 @@ package Project;
  * @param <T>
  */
 public interface Model<T> {
-    boolean add(T model);
-    boolean update(T model);
+
+    /**
+     * Add model to database
+     * @return
+     */
+    boolean add();
+
+    /**
+     * Update database model
+     * @param id
+     * @return
+     */
+    boolean update(int id);
+
+    /**
+     * Delete model from database
+     * @param id
+     * @return
+     */
     boolean delete(int id);
+
+    /**
+     * Find model in the database
+     * @param id
+     * @return
+     */
     T find(int id);
+
+    /**
+     * 
+     * @return
+     */
     java.util.ArrayList<T> getList();
+    public void showList(javax.swing.JTable table);
 }

@@ -9,31 +9,13 @@
             <Property name="text" type="java.lang.String" value="File"/>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="projectsMI">
-              <Properties>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/Project/images/icons8-project-50.png"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="Projects"/>
-                <Property name="toolTipText" type="java.lang.String" value="Manage Projects"/>
-              </Properties>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="disburseMI">
-              <Properties>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/Project/images/icons8-cash-in-hand-50.png"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="Disbursements"/>
-                <Property name="toolTipText" type="java.lang.String" value="Manage Fund Disbursements"/>
-              </Properties>
-            </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="logoutMI">
               <Properties>
                 <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
                   <KeyStroke key="Alt+F4"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/Project/images/icons8-logout-rounded-left-50.png"/>
+                  <Image iconType="3" name="/Project/images/icons8-logout-rounded-left-16.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Logout"/>
                 <Property name="toolTipText" type="java.lang.String" value="Logout"/>
@@ -51,11 +33,17 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="accountMI">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/Project/images/icons8-user-16.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="My Account"/>
               </Properties>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="expensesMI">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/Project/images/icons8-receive-cash-16.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="My Expenses"/>
               </Properties>
             </MenuItem>
@@ -72,7 +60,7 @@
                   <KeyStroke key="F1"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/Project/images/icons8-help-50.png"/>
+                  <Image iconType="3" name="/Project/images/icons8-help-16.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="About CGIS"/>
               </Properties>
@@ -109,20 +97,20 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" attributes="0">
+          <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="mainTabbedPane" max="32767" attributes="0"/>
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="welcomeLabel" min="-2" max="-2" attributes="0"/>
-                          <Component id="dashLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="dashLabel" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="statusLabel" min="-2" pref="482" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
                       <EmptySpace max="32767" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <Component id="statusLabel" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   </Group>
               </Group>
           </Group>
@@ -134,12 +122,13 @@
               <EmptySpace max="-2" attributes="0"/>
               <Component id="welcomeLabel" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="dashLabel" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="1" attributes="0">
+                  <Component id="dashLabel" min="-2" max="-2" attributes="0"/>
+                  <Component id="statusLabel" min="-2" pref="12" max="-2" attributes="0"/>
+              </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="mainTabbedPane" min="-2" pref="577" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="statusLabel" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="32767" attributes="0"/>
+              <EmptySpace pref="29" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -176,51 +165,50 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="projectHeaderLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Group type="102" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="addProjectBtn" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                                      <Component id="updateProjectBtn" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace pref="18" max="32767" attributes="0"/>
-                                      <Component id="deleteProjectBtn" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="projectHeaderLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="addProjectBtn" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Component id="updateProjectBtn" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace pref="18" max="32767" attributes="0"/>
+                                  <Component id="deleteProjectBtn" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="titleLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="sponsorLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="pmLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="activitiesLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="budgetLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="costLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="startDateLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="endDateLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="personelLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="progressLabel" alignment="0" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="titleLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="sponsorLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="pmLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="activitiesLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="budgetLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="costLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="startDateLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="endDateLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="personelLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="progressLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="titleTxt" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="sponsorTxt" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="pmTxt" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="activitiesTxt" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="budgetTxt" max="32767" attributes="0"/>
+                                      <Component id="costTxt" max="32767" attributes="0"/>
+                                      <Component id="startTxt" max="32767" attributes="0"/>
+                                      <Component id="personnelTxt" max="32767" attributes="0"/>
+                                      <Group type="102" attributes="0">
+                                          <Component id="progressTxt" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                       </Group>
-                                      <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="titleTxt" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="sponsorTxt" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="pmTxt" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="activitiesTxt" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="budgetTxt" max="32767" attributes="0"/>
-                                          <Component id="costTxt" max="32767" attributes="0"/>
-                                          <Component id="startTxt" max="32767" attributes="0"/>
-                                          <Component id="personnelTxt" max="32767" attributes="0"/>
-                                          <Group type="102" attributes="0">
-                                              <Component id="progressTxt" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                                          </Group>
-                                          <Component id="endTxt" max="32767" attributes="0"/>
-                                      </Group>
+                                      <Component id="endTxt" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
                           </Group>
+                          <Component id="refreshBtn" min="-2" pref="83" max="-2" attributes="0"/>
                       </Group>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="projectsScrollPane" max="32767" attributes="0"/>
                   </Group>
               </Group>
@@ -274,24 +262,23 @@
                               </Group>
                               <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" attributes="0">
+                                  <Group type="102" alignment="0" attributes="0">
                                       <Component id="personelLabel" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="3" attributes="0">
                                           <Component id="progressLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                                           <Component id="progressTxt" alignment="3" min="-2" max="-2" attributes="0"/>
                                       </Group>
-                                      <EmptySpace max="32767" attributes="0"/>
-                                      <Group type="103" groupAlignment="3" attributes="0">
-                                          <Component id="addProjectBtn" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          <Component id="updateProjectBtn" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          <Component id="deleteProjectBtn" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      </Group>
                                   </Group>
-                                  <Group type="102" attributes="0">
-                                      <Component id="personnelTxt" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                                  </Group>
+                                  <Component id="personnelTxt" alignment="0" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="32767" attributes="0"/>
+                              <Component id="refreshBtn" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="addProjectBtn" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="updateProjectBtn" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="deleteProjectBtn" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <Component id="projectsScrollPane" alignment="0" pref="502" max="32767" attributes="0"/>
@@ -312,17 +299,17 @@
             </Component>
             <Component class="javax.swing.JLabel" name="titleLabel">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Title"/>
+                <Property name="text" type="java.lang.String" value="Title *"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="sponsorLabel">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Project Sponsor"/>
+                <Property name="text" type="java.lang.String" value="Project Sponsor *"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="pmLabel">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Project Manager"/>
+                <Property name="text" type="java.lang.String" value="Project Manager *"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="activitiesLabel">
@@ -342,6 +329,7 @@
                   <Image iconType="3" name="/Project/images/icons8-plus-16.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Add"/>
+                <Property name="toolTipText" type="java.lang.String" value="Add new project"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="addProjectBtnActionPerformed"/>
@@ -354,17 +342,22 @@
                 <Component class="javax.swing.JTable" name="projectsTable">
                   <Properties>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                      <Table columnCount="7" rowCount="0">
-                        <Column editable="true" title="Title" type="java.lang.Object"/>
-                        <Column editable="true" title="Sponsor" type="java.lang.Object"/>
-                        <Column editable="true" title="Project Manager" type="java.lang.Object"/>
-                        <Column editable="true" title="Budget" type="java.lang.Object"/>
-                        <Column editable="true" title="Start Date" type="java.lang.Object"/>
-                        <Column editable="true" title="End Date" type="java.lang.Object"/>
-                        <Column editable="true" title="Progress" type="java.lang.Object"/>
+                      <Table columnCount="9" rowCount="0">
+                        <Column editable="false" title="ID" type="java.lang.Object"/>
+                        <Column editable="false" title="Title" type="java.lang.Object"/>
+                        <Column editable="false" title="Sponsor" type="java.lang.Object"/>
+                        <Column editable="false" title="Project Manager" type="java.lang.Object"/>
+                        <Column editable="false" title="Budget" type="java.lang.Object"/>
+                        <Column editable="false" title="Start Date" type="java.lang.Object"/>
+                        <Column editable="false" title="End Date" type="java.lang.Object"/>
+                        <Column editable="false" title="Progress" type="java.lang.Object"/>
+                        <Column editable="false" title="Created By" type="java.lang.Object"/>
                       </Table>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="projectsTableMouseClicked"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>
@@ -374,7 +367,11 @@
                   <Image iconType="3" name="/Project/images/icons8-update-16.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Update"/>
+                <Property name="toolTipText" type="java.lang.String" value="Update project"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="updateProjectBtnActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="deleteProjectBtn">
               <Properties>
@@ -382,11 +379,15 @@
                   <Image iconType="3" name="/Project/images/icons8-trash-16.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Delete"/>
+                <Property name="toolTipText" type="java.lang.String" value="Delete project"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="deleteProjectBtnActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="budgetLabel">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Budget"/>
+                <Property name="text" type="java.lang.String" value="Budget *"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="costLabel">
@@ -396,12 +397,12 @@
             </Component>
             <Component class="javax.swing.JLabel" name="startDateLabel">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Start Date"/>
+                <Property name="text" type="java.lang.String" value="Start Date *"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="endDateLabel">
               <Properties>
-                <Property name="text" type="java.lang.String" value="End Date"/>
+                <Property name="text" type="java.lang.String" value="End Date *"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="personelLabel">
@@ -479,6 +480,15 @@
                 </Property>
                 <Property name="toolTipText" type="java.lang.String" value="Date Format yyyy-MM-dd e.g. 2018-03-23"/>
               </Properties>
+            </Component>
+            <Component class="javax.swing.JButton" name="refreshBtn">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Refresh"/>
+                <Property name="toolTipText" type="java.lang.String" value="Refresh the table data"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="refreshBtnActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
