@@ -33,6 +33,8 @@ public class HomeView extends javax.swing.JFrame {
         counties.showList(countyStatsTable);
         //show projects
         project.showList(projectsTable);
+        //set projects table row sorter
+        projectsTable = Utils.setRowSorter(projectsTable, searchTxt);
     }
 
     /**
@@ -75,6 +77,10 @@ public class HomeView extends javax.swing.JFrame {
         personnelTxt = new javax.swing.JFormattedTextField();
         endTxt = new javax.swing.JFormattedTextField();
         refreshBtn = new javax.swing.JButton();
+        resetBtn = new javax.swing.JButton();
+        searchLabel = new javax.swing.JLabel();
+        searchTxt = new javax.swing.JTextField();
+        searchBtn = new javax.swing.JButton();
         disbursePanel = new javax.swing.JPanel();
         countyStatsPanel = new javax.swing.JPanel();
         countyStatsScrollPane = new javax.swing.JScrollPane();
@@ -192,6 +198,17 @@ public class HomeView extends javax.swing.JFrame {
             }
         });
 
+        resetBtn.setText("Reset");
+        resetBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                resetBtnActionPerformed(evt);
+            }
+        });
+
+        searchLabel.setText("Search:");
+
+        searchBtn.setText("Search");
+
         javax.swing.GroupLayout projectPanelLayout = new javax.swing.GroupLayout(projectPanel);
         projectPanel.setLayout(projectPanelLayout);
         projectPanelLayout.setHorizontalGroup(
@@ -233,18 +250,32 @@ public class HomeView extends javax.swing.JFrame {
                                     .addComponent(progressTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGap(0, 0, Short.MAX_VALUE))
                                 .addComponent(endTxt))))
-                    .addComponent(refreshBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(projectPanelLayout.createSequentialGroup()
+                        .addComponent(resetBtn)
+                        .addGap(18, 18, 18)
+                        .addComponent(refreshBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
-                .addComponent(projectsScrollPane))
+                .addGroup(projectPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(projectsScrollPane)
+                    .addGroup(projectPanelLayout.createSequentialGroup()
+                        .addComponent(searchLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(searchTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(searchBtn))))
         );
         projectPanelLayout.setVerticalGroup(
             projectPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(projectPanelLayout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addGroup(projectPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(projectHeaderLabel)
+                    .addComponent(searchLabel)
+                    .addComponent(searchTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(searchBtn))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(projectPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(projectPanelLayout.createSequentialGroup()
-                        .addGap(21, 21, 21)
-                        .addComponent(projectHeaderLabel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(projectPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(titleLabel)
                             .addComponent(titleTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -285,14 +316,16 @@ public class HomeView extends javax.swing.JFrame {
                                     .addComponent(progressLabel)
                                     .addComponent(progressTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addComponent(personnelTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(refreshBtn)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 78, Short.MAX_VALUE)
+                        .addGroup(projectPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(refreshBtn)
+                            .addComponent(resetBtn))
                         .addGap(18, 18, 18)
                         .addGroup(projectPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(addProjectBtn)
                             .addComponent(updateProjectBtn)
                             .addComponent(deleteProjectBtn)))
-                    .addComponent(projectsScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 502, Short.MAX_VALUE))
+                    .addComponent(projectsScrollPane))
                 .addContainerGap())
         );
 
@@ -438,6 +471,9 @@ public class HomeView extends javax.swing.JFrame {
 
     private void aboutMIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aboutMIActionPerformed
         // Show about this project
+        java.awt.EventQueue.invokeLater(() -> {
+            new HelpView().setVisible(true);
+        });
         
     }//GEN-LAST:event_aboutMIActionPerformed
 
@@ -518,6 +554,11 @@ public class HomeView extends javax.swing.JFrame {
         // refresh the table
         project.showList(projectsTable);
     }//GEN-LAST:event_refreshBtnActionPerformed
+
+    private void resetBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetBtnActionPerformed
+        // reset projects form fields
+        resetFields("project");
+    }//GEN-LAST:event_resetBtnActionPerformed
 
     private boolean dataValid(String type) {
         String actString="", perString="";
@@ -632,6 +673,10 @@ public class HomeView extends javax.swing.JFrame {
     private javax.swing.JScrollPane projectsScrollPane;
     private javax.swing.JTable projectsTable;
     private javax.swing.JButton refreshBtn;
+    private javax.swing.JButton resetBtn;
+    private javax.swing.JButton searchBtn;
+    private javax.swing.JLabel searchLabel;
+    private javax.swing.JTextField searchTxt;
     private javax.swing.JLabel sponsorLabel;
     private javax.swing.JTextField sponsorTxt;
     private javax.swing.JLabel startDateLabel;

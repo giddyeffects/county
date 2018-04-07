@@ -19,7 +19,12 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.AddressException;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.RowFilter;
 import javax.swing.Timer;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 import org.jasypt.util.password.BasicPasswordEncryptor;
 
 /**
@@ -153,6 +158,21 @@ public class Utils {
             label.setText("");
         });
         timer.start();
+    }
+    
+    public static JTable setRowSorter(JTable table, JTextField filter) {
+        TableRowSorter<TableModel> rowSorter = new TableRowSorter<>(table.getModel());
+        table.setRowSorter(rowSorter);
+        filter.addActionListener((ActionEvent e) -> {
+            String text = filter.getText();
+            if (text.trim().length() == 0) {
+                rowSorter.setRowFilter(null);
+            } else {
+                rowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + text));//case insensitive rowfilter
+            }
+        });
+        
+        return table;
     }
     
 }

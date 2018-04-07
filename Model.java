@@ -40,9 +40,13 @@ public interface Model<T> {
     T find(int id);
 
     /**
-     * 
+     * Get ArrayList of the models database table rows
      * @return
      */
     java.util.ArrayList<T> getList();
+    /**
+     * Show the ArrayList on a JTable
+     * @param table 
+     */
     public void showList(javax.swing.JTable table);
 }
