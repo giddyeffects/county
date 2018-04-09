@@ -39,14 +39,6 @@
                 <Property name="text" type="java.lang.String" value="My Account"/>
               </Properties>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="expensesMI">
-              <Properties>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/Project/images/icons8-receive-cash-16.png"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="My Expenses"/>
-              </Properties>
-            </MenuItem>
           </SubComponents>
         </Menu>
         <Menu class="javax.swing.JMenu" name="helpMenu">
@@ -166,13 +158,13 @@
                   <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" attributes="0">
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="projectHeaderLabel" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="addProjectBtn" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Component id="updateProjectBtn" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace pref="18" max="32767" attributes="0"/>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Component id="deleteProjectBtn" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
@@ -189,7 +181,7 @@
                                       <Component id="progressLabel" alignment="0" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                       <Component id="titleTxt" alignment="0" max="32767" attributes="0"/>
                                       <Component id="sponsorTxt" alignment="0" max="32767" attributes="0"/>
                                       <Component id="pmTxt" alignment="0" max="32767" attributes="0"/>
@@ -200,27 +192,26 @@
                                       <Component id="personnelTxt" max="32767" attributes="0"/>
                                       <Group type="102" attributes="0">
                                           <Component id="progressTxt" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                          <EmptySpace min="0" pref="117" max="32767" attributes="0"/>
                                       </Group>
                                       <Component id="endTxt" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                           </Group>
-                          <Group type="102" attributes="0">
-                              <Component id="resetBtn" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="refreshBtn" min="-2" pref="83" max="-2" attributes="0"/>
-                          </Group>
+                          <Component id="resetBtn" min="-2" pref="83" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="projectsScrollPane" max="32767" attributes="0"/>
+                          <Component id="projectsScrollPane" pref="474" max="32767" attributes="0"/>
                           <Group type="102" attributes="0">
                               <Component id="searchLabel" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="searchTxt" min="-2" pref="260" max="-2" attributes="0"/>
-                              <EmptySpace max="32767" attributes="0"/>
+                              <Component id="searchTxt" max="32767" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
                               <Component id="searchBtn" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="refreshBtn" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -235,6 +226,7 @@
                           <Component id="searchLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="searchTxt" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="searchBtn" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="refreshBtn" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
@@ -290,19 +282,17 @@
                                   </Group>
                                   <Component id="personnelTxt" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace pref="78" max="32767" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
+                              <Component id="resetBtn" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="refreshBtn" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="resetBtn" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="addProjectBtn" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="updateProjectBtn" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="deleteProjectBtn" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="updateProjectBtn" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="addProjectBtn" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
+                              <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="projectsScrollPane" max="32767" attributes="0"/>
+                          <Component id="projectsScrollPane" pref="450" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -525,11 +515,20 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="searchTxt">
+              <Properties>
+                <Property name="toolTipText" type="java.lang.String" value="search title, sponsor or project manager"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="searchTxtActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="searchBtn">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Search"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="searchBtnActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
@@ -548,7 +547,7 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="757" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="779" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
@@ -575,7 +574,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="countyStatsScrollPane" pref="737" max="32767" attributes="0"/>
+                      <Component id="countyStatsScrollPane" pref="759" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>

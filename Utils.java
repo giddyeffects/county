@@ -129,10 +129,10 @@ public class Utils {
         return JOptionPane.showConfirmDialog(null, msg);
     }
     
-    public static void getDate() {
-        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    public static String getDate() {
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         df.setTimeZone(TimeZone.getTimeZone("Africa/Nairobi"));
-        System.out.println("Current datetime is "+df.format(new Date()));
+        return df.format(new Date());
     }
     /**
      * Show status message text in JLabel label for sec seconds
@@ -160,19 +160,22 @@ public class Utils {
         timer.start();
     }
     
-    public static JTable setRowSorter(JTable table, JTextField filter) {
+    public static JTextField setRowSorter(JTable table, JTextField filterTxt) {
         TableRowSorter<TableModel> rowSorter = new TableRowSorter<>(table.getModel());
         table.setRowSorter(rowSorter);
-        filter.addActionListener((ActionEvent e) -> {
-            String text = filter.getText();
-            if (text.trim().length() == 0) {
-                rowSorter.setRowFilter(null);
-            } else {
-                rowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + text));//case insensitive rowfilter
+        filterTxt.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String text = filterTxt.getText();
+                if (text.trim().length() == 0) {
+                    rowSorter.setRowFilter(null);
+                } else {
+                    rowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + text));//case insensitive rowfilter
+                }
             }
         });
         
-        return table;
+        return filterTxt;
     }
     
 }

@@ -10,6 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -111,21 +112,16 @@ public class ProjectModel implements Model<ProjectModel> {
     @Override
     public ArrayList<ProjectModel> getList() {
         ArrayList<ProjectModel> projectsList = new ArrayList<>();
-        String sql = "";
         //if logged in user has role of 0 then get projects belonging to the user
         //else if user has role of 1 then get projects belonging to that county
         //else if user has role of 5 then get all projects
+        String sql = "SELECT * FROM " + DB.PROJECTS_TABLE;
         switch (Utils.user.getRole()) {
             case 0:
-                sql = "SELECT * FROM " + DB.PROJECTS_TABLE + " "
-                        + "WHERE user_id = "+ Utils.user.getID();
+                sql += " WHERE user_id = "+ Utils.user.getID();
                 break;
             case 1:
-                sql = "SELECT * FROM " + DB.PROJECTS_TABLE + " "
-                        + "WHERE county_id = "+ Utils.user.getCountyCode();
-                break;
-            case 5:
-                sql = "SELECT * FROM " + DB.PROJECTS_TABLE;
+                sql += " WHERE county_id = "+ Utils.user.getCountyCode();
                 break;
             default:
                 break;
@@ -170,7 +166,74 @@ public class ProjectModel implements Model<ProjectModel> {
         //}
         
     }
+
+    /**
+     * Search the projects database
+     * @param text
+     * @return 
+     */
+    public static ArrayList<ProjectModel> search(String text) {
+        ArrayList<ProjectModel> projectsList = new ArrayList<>();
+        //search title or sponsor or manager for the search text
+        String sql = "SELECT * FROM " + DB.PROJECTS_TABLE + " WHERE (`title` LIKE ? OR `sponsor` LIKE ? OR `manager` LIKE ?)";
+        //if logged in user has role of 0 then get projects belonging to the user
+        //else if user has role of 1 then get projects belonging to that county
+        //else if user has role of 5 then get all projects
+        switch (Utils.user.getRole()) {
+            case 0:
+                sql += " AND `user_id` = "+ Utils.user.getID();
+                break;
+            case 1:
+                sql += " AND `county_id` = "+ Utils.user.getCountyCode();
+                break;
+            default:
+                break;
+        }
         
+        try {
+            PreparedStatement stmt = Utils.db().connect().prepareStatement(sql);
+            stmt.setString(1, "%"+ text + "%");
+            stmt.setString(2, "%"+ text + "%");
+            stmt.setString(3, "%"+ text + "%");
+            ResultSet rs = stmt.executeQuery();
+            ProjectModel project;
+            if(rs != null) {
+                while (rs.next()) {
+                    project = new ProjectModel(rs.getInt("id"), rs.getInt("county_id"), rs.getInt("user_id"), rs.getInt("activities"), rs.getInt("personnel"), 
+                    rs.getInt("progress"), rs.getString("title"), rs.getString("sponsor"), rs.getString("manager"), rs.getString("budget"), rs.getString("actual_cost"), rs.getDate("start_date"),rs.getDate("end_date"));//
+                    projectsList.add(project);
+                }
+            }
+        } catch (SQLException e) {
+            Utils.showDialog("Results error or search string not found" + e.getMessage(), "Error");
+        }
+        
+        return projectsList;
+    }
+    
+    public static void showSearchResults(JTable table, String text, JLabel label) {
+        ArrayList<ProjectModel> projectList = search(text);
+        if (projectList.size() > 0) {
+            DefaultTableModel model = (DefaultTableModel)table.getModel();
+            model.setRowCount(0);
+            Object[] row = new Object[9];
+            for ( int i=0; i < projectList.size(); i++) {
+                row[0] = projectList.get(i).getID();
+                row[1] = projectList.get(i).getTitle();
+                row[2] = projectList.get(i).getSponsor();
+                row[3] = projectList.get(i).getManager();
+                row[4] = projectList.get(i).getBudget();
+                row[5] = projectList.get(i).getStartDate();
+                row[6] = projectList.get(i).getEndDate();
+                row[7] = projectList.get(i).getProgress();
+                row[8] = projectList.get(i).getUser();
+                model.addRow(row);
+            }
+        } else {
+            Utils.showStatus(label, "No results found for '"+text+"'", 10, "error");
+        }
+        
+    }
     /**
      * Adds a project to the database
      * @return boolean

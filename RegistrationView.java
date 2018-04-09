@@ -42,7 +42,7 @@ public class RegistrationView extends javax.swing.JFrame {
     private void initComponents() {
 
         headerLabel = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
+        titleLabel = new javax.swing.JLabel();
         usernameLabel = new javax.swing.JLabel();
         fullnameLabel = new javax.swing.JLabel();
         emailLabel = new javax.swing.JLabel();
@@ -64,8 +64,8 @@ public class RegistrationView extends javax.swing.JFrame {
 
         headerLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Project/images/form-header.png"))); // NOI18N
 
-        jLabel1.setFont(new java.awt.Font("Adobe Garamond Pro Bold", 0, 18)); // NOI18N
-        jLabel1.setText("REGISTER NEW ACCOUNT");
+        titleLabel.setFont(new java.awt.Font("Adobe Garamond Pro Bold", 0, 18)); // NOI18N
+        titleLabel.setText("REGISTER NEW ACCOUNT");
 
         usernameLabel.setText("Username:");
 
@@ -128,7 +128,7 @@ public class RegistrationView extends javax.swing.JFrame {
                                         .addComponent(resetBtn))
                                     .addComponent(passTxt)
                                     .addComponent(confirmPassTxt)))
-                            .addComponent(jLabel1))
+                            .addComponent(titleLabel))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -137,7 +137,7 @@ public class RegistrationView extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(headerLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(titleLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(usernameLabel)
@@ -290,12 +290,12 @@ public class RegistrationView extends javax.swing.JFrame {
     private javax.swing.JLabel fullnameLabel;
     private javax.swing.JTextField fullnameTxt;
     private javax.swing.JLabel headerLabel;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel pass2Label;
     private javax.swing.JLabel passLabel;
     private javax.swing.JPasswordField passTxt;
     private javax.swing.JButton registerBtn;
     private javax.swing.JButton resetBtn;
+    private javax.swing.JLabel titleLabel;
     private javax.swing.JLabel usernameLabel;
     private javax.swing.JTextField usernameTxt;
     // End of variables declaration//GEN-END:variables
