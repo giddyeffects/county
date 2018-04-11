@@ -68,7 +68,7 @@ public class CountyModel implements Model<CountyModel> {
                 //System.out.println(rs.getString("name"));
                 dd.addItem(rs.getString("name"));
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             Utils.showDialog(e.getMessage(), "Error");
         }
         return dd;

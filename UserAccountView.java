@@ -40,7 +40,7 @@ public class UserAccountView extends javax.swing.JFrame {
         roleLabel = new javax.swing.JLabel();
         roleTxt = new javax.swing.JComboBox<>();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         headerLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Project/images/form-header.png"))); // NOI18N
 

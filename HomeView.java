@@ -17,6 +17,9 @@ public class HomeView extends javax.swing.JFrame {
     String title, sponsor, pm, budget, actual_cost;
     Date start_date, end_date;
     ProjectModel project = new ProjectModel();
+    //declare DisburseModel variables
+    int disburse_id=0, disproject_id;
+    DisburseModel disburse = new DisburseModel();
 
     /**
      * Creates new form Home
@@ -26,12 +29,16 @@ public class HomeView extends javax.swing.JFrame {
         if(Utils.loggedIn) {
             welcomeLabel.setText("Welcome "+Utils.user.getFullname()+ " : "+Utils.getDate());
             projectHeaderLabel.setText("Project Details: "+ Utils.user.getCounty());
+            Utils.db().connect();
+            this.loadProjects();
         }
         //show counties
         CountyModel counties = new CountyModel();
         counties.showList(countyStatsTable);
         //show projects
         project.showList(projectsTable);
+        //show fund allocations
+        disburse.showList(disburseTable);
     }
 
     /**
@@ -79,6 +86,15 @@ public class HomeView extends javax.swing.JFrame {
         searchTxt = new javax.swing.JTextField();
         searchBtn = new javax.swing.JButton();
         disbursePanel = new javax.swing.JPanel();
+        disburseHeaderLabel = new javax.swing.JLabel();
+        disburseScrollPane = new javax.swing.JScrollPane();
+        disburseTable = new javax.swing.JTable();
+        jLabel1 = new javax.swing.JLabel();
+        projectsTxt = new javax.swing.JComboBox<>();
+        amountLabel = new javax.swing.JLabel();
+        jFormattedTextField1 = new javax.swing.JFormattedTextField();
+        addDisBtn = new javax.swing.JButton();
+        updateDisBtn = new javax.swing.JButton();
         countyStatsPanel = new javax.swing.JPanel();
         countyStatsScrollPane = new javax.swing.JScrollPane();
         countyStatsTable = new javax.swing.JTable();
@@ -261,7 +277,7 @@ public class HomeView extends javax.swing.JFrame {
                     .addComponent(resetBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(projectPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(projectsScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 474, Short.MAX_VALUE)
+                    .addComponent(projectsScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 479, Short.MAX_VALUE)
                     .addGroup(projectPanelLayout.createSequentialGroup()
                         .addComponent(searchLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -333,21 +349,96 @@ public class HomeView extends javax.swing.JFrame {
                             .addComponent(updateProjectBtn)
                             .addComponent(addProjectBtn))
                         .addGap(39, 39, 39))
-                    .addComponent(projectsScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 450, Short.MAX_VALUE))
+                    .addComponent(projectsScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 459, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
         mainTabbedPane.addTab("Projects ", new javax.swing.ImageIcon(getClass().getResource("/Project/images/icons8-project-50.png")), projectPanel); // NOI18N
 
+        disburseHeaderLabel.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        disburseHeaderLabel.setText("Disbursement Details");
+
+        disburseTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "ID", "Project", "Amount", "Disbursed By", "Disbursed On"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, true
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        disburseScrollPane.setViewportView(disburseTable);
+
+        jLabel1.setText("Project:");
+
+        projectsTxt.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--select project--" }));
+
+        amountLabel.setText("Amount:");
+
+        jFormattedTextField1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
+
+        addDisBtn.setText("Add");
+        addDisBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addDisBtnActionPerformed(evt);
+            }
+        });
+
+        updateDisBtn.setText("Update");
+
         javax.swing.GroupLayout disbursePanelLayout = new javax.swing.GroupLayout(disbursePanel);
         disbursePanel.setLayout(disbursePanelLayout);
         disbursePanelLayout.setHorizontalGroup(
             disbursePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 779, Short.MAX_VALUE)
+            .addGroup(disbursePanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(disbursePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(disbursePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(disburseHeaderLabel)
+                        .addGroup(disbursePanelLayout.createSequentialGroup()
+                            .addComponent(amountLabel)
+                            .addGap(22, 22, 22)
+                            .addComponent(jFormattedTextField1))
+                        .addGroup(disbursePanelLayout.createSequentialGroup()
+                            .addComponent(jLabel1)
+                            .addGap(25, 25, 25)
+                            .addComponent(projectsTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(disbursePanelLayout.createSequentialGroup()
+                        .addComponent(addDisBtn)
+                        .addGap(18, 18, 18)
+                        .addComponent(updateDisBtn)))
+                .addGap(133, 133, 133)
+                .addComponent(disburseScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 462, Short.MAX_VALUE)
+                .addContainerGap())
         );
         disbursePanelLayout.setVerticalGroup(
             disbursePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 513, Short.MAX_VALUE)
+            .addGroup(disbursePanelLayout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addGroup(disbursePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(disburseScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 468, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(disbursePanelLayout.createSequentialGroup()
+                        .addComponent(disburseHeaderLabel)
+                        .addGap(18, 18, 18)
+                        .addGroup(disbursePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel1)
+                            .addComponent(projectsTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(disbursePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(amountLabel)
+                            .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(71, 71, 71)
+                        .addGroup(disbursePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(addDisBtn)
+                            .addComponent(updateDisBtn))))
+                .addContainerGap(32, Short.MAX_VALUE))
         );
 
         mainTabbedPane.addTab("Disbursements ", new javax.swing.ImageIcon(getClass().getResource("/Project/images/icons8-cash-in-hand-50.png")), disbursePanel); // NOI18N
@@ -376,14 +467,14 @@ public class HomeView extends javax.swing.JFrame {
             countyStatsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, countyStatsPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(countyStatsScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 759, Short.MAX_VALUE)
+                .addComponent(countyStatsScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 764, Short.MAX_VALUE)
                 .addContainerGap())
         );
         countyStatsPanelLayout.setVerticalGroup(
             countyStatsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(countyStatsPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(countyStatsScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 491, Short.MAX_VALUE)
+                .addComponent(countyStatsScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -408,6 +499,11 @@ public class HomeView extends javax.swing.JFrame {
 
         accountMI.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Project/images/icons8-user-16.png"))); // NOI18N
         accountMI.setText("My Account");
+        accountMI.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                accountMIActionPerformed(evt);
+            }
+        });
         accountMenu.add(accountMI);
 
         homeMenuBar.add(accountMenu);
@@ -455,8 +551,8 @@ public class HomeView extends javax.swing.JFrame {
                     .addComponent(dashLabel)
                     .addComponent(statusLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(mainTabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, 577, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(29, Short.MAX_VALUE))
+                .addComponent(mainTabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, 586, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         pack();
@@ -579,6 +675,27 @@ public class HomeView extends javax.swing.JFrame {
         this.searchBtnActionPerformed(evt);
     }//GEN-LAST:event_searchTxtActionPerformed
 
+    private void accountMIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_accountMIActionPerformed
+        // show users profile
+        java.awt.EventQueue.invokeLater(() -> {
+            new UserAccountView().setVisible(true);
+        });
+    }//GEN-LAST:event_accountMIActionPerformed
+
+    private void addDisBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addDisBtnActionPerformed
+        // add a disbursement to the database
+        if (dataValid("disburse") && ( Utils.showDialog("Add these funds to this project?") == 0)) {
+            disburse = new DisburseModel();
+            if (disburse.add()) {
+                Utils.showStatus(statusLabel, "Funds allocated successfully", 10, "success");
+                //refresh the table
+                disburse.showList(disburseTable);
+                //reset disburse form fields
+                resetFields("disburse");
+            }
+        }        
+    }//GEN-LAST:event_addDisBtnActionPerformed
+
     private boolean dataValid(String type) {
         String actString="", perString="";
         if("project".equals(type)) {
@@ -628,6 +745,13 @@ public class HomeView extends javax.swing.JFrame {
     }
     
     /**
+     * Load user's projects to combobox
+     */
+    private void loadProjects() {
+        projectsTxt = ProjectModel.getProjectTitles(projectsTxt);
+    }
+    
+    /**
      * @param args the command line arguments
      *
     public static void main(String args[]) {
@@ -662,7 +786,9 @@ public class HomeView extends javax.swing.JFrame {
     private javax.swing.JMenu accountMenu;
     private javax.swing.JLabel activitiesLabel;
     private javax.swing.JFormattedTextField activitiesTxt;
+    private javax.swing.JButton addDisBtn;
     private javax.swing.JButton addProjectBtn;
+    private javax.swing.JLabel amountLabel;
     private javax.swing.JLabel budgetLabel;
     private javax.swing.JFormattedTextField budgetTxt;
     private javax.swing.JLabel costLabel;
@@ -672,12 +798,17 @@ public class HomeView extends javax.swing.JFrame {
     private javax.swing.JTable countyStatsTable;
     private javax.swing.JLabel dashLabel;
     private javax.swing.JButton deleteProjectBtn;
+    private javax.swing.JLabel disburseHeaderLabel;
     private javax.swing.JPanel disbursePanel;
+    private javax.swing.JScrollPane disburseScrollPane;
+    private javax.swing.JTable disburseTable;
     private javax.swing.JLabel endDateLabel;
     private javax.swing.JFormattedTextField endTxt;
     private javax.swing.JMenu fileMenu;
     private javax.swing.JMenu helpMenu;
     private javax.swing.JMenuBar homeMenuBar;
+    private javax.swing.JFormattedTextField jFormattedTextField1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JMenuItem logoutMI;
     private javax.swing.JTabbedPane mainTabbedPane;
     private javax.swing.JLabel personelLabel;
@@ -690,6 +821,7 @@ public class HomeView extends javax.swing.JFrame {
     private javax.swing.JPanel projectPanel;
     private javax.swing.JScrollPane projectsScrollPane;
     private javax.swing.JTable projectsTable;
+    private javax.swing.JComboBox<String> projectsTxt;
     private javax.swing.JButton refreshBtn;
     private javax.swing.JButton resetBtn;
     private javax.swing.JButton searchBtn;
@@ -702,6 +834,7 @@ public class HomeView extends javax.swing.JFrame {
     private javax.swing.JLabel statusLabel;
     private javax.swing.JLabel titleLabel;
     private javax.swing.JTextField titleTxt;
+    private javax.swing.JButton updateDisBtn;
     private javax.swing.JButton updateProjectBtn;
     private javax.swing.JLabel welcomeLabel;
     // End of variables declaration//GEN-END:variables

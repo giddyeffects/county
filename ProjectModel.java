@@ -10,6 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -234,6 +235,38 @@ public class ProjectModel implements Model<ProjectModel> {
         }
         
     }
+    
+    /**
+     * get project titles from the database
+     * @param dd
+     * @return 
+     */
+    public static JComboBox getProjectTitles(JComboBox dd) {
+        //if logged in user has role of 0 then get projects belonging to the user
+        //else if user has role of 1 then get projects belonging to that county
+        //else if user has role of 5 then get all projects
+        String sql = "SELECT title FROM " + DB.PROJECTS_TABLE;
+        switch (Utils.user.getRole()) {
+            case 0:
+                sql += " WHERE user_id = "+ Utils.user.getID();
+                break;
+            case 1:
+                sql += " WHERE county_id = "+ Utils.user.getCountyCode();
+                break;
+            default:
+                break;
+        }
+        try {
+            ResultSet rs = Utils.db().getResult(sql);
+            while (rs.next()) {
+                dd.addItem(rs.getString("title"));
+            }
+        } catch (SQLException e) {
+            Utils.showDialog("Error getting project titles " + e.getMessage(), "Error");
+        }
+        return dd;
+    }
+    
     /**
      * Adds a project to the database
      * @return boolean

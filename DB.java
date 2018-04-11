@@ -33,6 +33,7 @@ public class DB {
     public static final String COUNTIES_TABLE = "counties";
     public static final String USERS_TABLE = "users";
     public static final String PROJECTS_TABLE = "projects";
+    public static final String DISBURSEMENTS_TABLE = "disbursements";
     
     //instance variables
     private static Connection connection;
